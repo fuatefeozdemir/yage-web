@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@theme {
+  --color-brand-bg: #09090b;
+  --color-brand-surface: #18181b;
+  --color-brand-primary: #6366f1;
+  --color-brand-secondary: #a855f7;
+  --color-brand-text: #f8fafc;
+  --color-brand-muted: #94a3b8;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --animate-fade-up: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-marquee: marquee 25s linear infinite;
+  --animate-grid-pan: gridPan 2s linear infinite;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  @keyframes fadeUp {
+    0% { opacity: 0; transform: translateY(30px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+  }
+  @keyframes gridPan {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(24px); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+html, body {
+  background-color: #09090b;
+  color: #f8fafc;
+}
+
+/* Özel Kaydırma Çubuğu */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+
+/* Accordion Galeri (Bizden Kareler) */
+.accordion-gallery {
+  display: flex;
+  gap: 8px;
+  height: 300px;
+  width: 100%;
+}
+.accordion-item {
+  flex: 1;
+  overflow: hidden;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  background: #18181b;
+  border: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+.accordion-item:hover {
+  flex: 4;
+  border-color: rgba(255,255,255,0.2);
+}
+.accordion-item span {
+  position: absolute;
+  z-index: 10;
+  min-width: 14em;
+  padding: 0.5em;
+  text-align: center;
+  transform: rotate(-90deg);
+  transition: all 0.5s;
+  text-transform: uppercase;
+  color: #94a3b8;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+.accordion-item:hover span {
+  transform: rotate(0);
+  color: #f8fafc;
+}
+
+/* Yukarı Çık Butonu (Sade ve Profesyonel) */
+.btn-top {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: #18181b;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 50;
+}
+.btn-top .svgIcon {
+  width: 20px;
+  stroke: #f8fafc;
+  transition: stroke 0.3s ease;
+}
+.btn-top:hover {
+  background-color: #f8fafc;
+  border-color: #f8fafc;
+}
+.btn-top:hover .svgIcon {
+  stroke: #09090b;
 }
