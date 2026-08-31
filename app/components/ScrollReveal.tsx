@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 
-export default function ScrollReveal({ children, className = "" }: { children: React.ReactNode, className?: string }) {
+export default function ScrollReveal({ children, className = "", delay = 0 }: { children: React.ReactNode, className?: string, delay?: number }) {
     const [isVisible, setIsVisible] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -15,7 +15,11 @@ export default function ScrollReveal({ children, className = "" }: { children: R
     }, []);
 
     return (
-        <div ref={ref} className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${className}`}>
+        <div
+            ref={ref}
+            style={{ transitionDelay: `${delay}ms` }}
+            className={`transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"} ${className}`}
+        >
             {children}
         </div>
     );
