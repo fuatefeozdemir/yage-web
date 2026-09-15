@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Search } from "lucide-react";
 import { etkinlikler } from "../data/siteData";
 import ScrollReveal from "../components/ScrollReveal";
@@ -11,7 +12,7 @@ export default function EventsPage() {
     const [activeYear, setActiveYear] = useState("TÜM YILLAR");
     const [searchQuery, setSearchQuery] = useState("");
 
-    const categories = ["TÜMÜ", "EĞİTİM", "TEKNİK", "PANEL", "GEZİ", "YARIŞMA"];
+    const categories = ["TÜMÜ", "EĞİTİM", "TEKNİK", "PANEL", "GEZİ", "YARIŞMA", "SOSYAL"];
     const academicYears = ["TÜM YILLAR", "2026-2027", "2025-2026", "2024-2025"];
 
     const filteredEvents = etkinlikler.filter(e => {
@@ -34,7 +35,7 @@ export default function EventsPage() {
     return (
         <main className="flex flex-col min-h-screen bg-[#09090b]">
 
-            {/* 1. EDİTORYAL HERO (Sade ve Net) */}
+            {/* 1. EDİTORYAL HERO */}
             <section className="w-full pt-40 pb-16 px-6 border-b border-white/5">
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                     <ScrollReveal>
@@ -46,7 +47,6 @@ export default function EventsPage() {
                         </p>
                     </ScrollReveal>
 
-                    {/* Sağ Tarafta Gerçek Veri / Metadata */}
                     <ScrollReveal delay={100} className="font-mono text-xs text-brand-muted/50 tracking-widest uppercase">
                         <div>TOPLAM ARŞİV: {etkinlikler.length} ETKİNLİK</div>
                         <div className="mt-1">SON GÜNCELLEME: 2026</div>
@@ -54,11 +54,9 @@ export default function EventsPage() {
                 </div>
             </section>
 
-            {/* 2. SADE KONTROL ÇUBUĞU (Sticky Kaldırıldı, Admin Paneli Hissi Giderildi) */}
+            {/* 2. SADE KONTROL ÇUBUĞU */}
             <section className="max-w-6xl mx-auto px-6 w-full pt-12 pb-8">
                 <ScrollReveal delay={0}>
-
-                    {/* Arama ve Yıl Seçimi */}
                     <div className="flex flex-col sm:flex-row justify-between gap-4 mb-8">
                         <div className="relative w-full sm:w-80">
                             <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-brand-muted/40" />
@@ -84,7 +82,6 @@ export default function EventsPage() {
                         </div>
                     </div>
 
-                    {/* Kategori Sekmeleri (Altı Çizgili Editoryal Stil) */}
                     <div className="flex gap-8 overflow-x-auto hide-scrollbar border-b border-white/5 pb-1">
                         {categories.map(cat => (
                             <button
@@ -106,7 +103,7 @@ export default function EventsPage() {
                 </ScrollReveal>
             </section>
 
-            {/* 3. ETKİNLİK LİSTESİ (Watermarklar Kaldırıldı, Kurumsal Yıl Başlıkları) */}
+            {/* 3. ETKİNLİK LİSTESİ */}
             <section className="max-w-6xl mx-auto px-6 w-full pb-32">
                 {sortedYears.length === 0 && (
                     <div className="text-brand-muted/50 py-16 mt-8 font-mono text-sm text-center border border-white/5 bg-[#111113]">
@@ -119,8 +116,6 @@ export default function EventsPage() {
 
                     return (
                         <div key={year} className="mb-20">
-
-                            {/* Kurumsal Yıl Başlığı + Etkinlik Sayısı */}
                             <ScrollReveal delay={0}>
                                 <div className="flex items-center gap-6 mb-8 pt-8">
                                     <h2 className="text-xl md:text-2xl font-bold text-white tracking-tight">{year}</h2>
@@ -129,27 +124,33 @@ export default function EventsPage() {
                                 </div>
                             </ScrollReveal>
 
-                            {/* Etkinlik Kartları Grid */}
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 {groupedEvents[year].map((etkinlik, i) => (
-                                    <ScrollReveal key={etkinlik.id} delay={i * 100}>
+                                    <ScrollReveal key={etkinlik.id} delay={i * 50}>
                                         <Link href={`/etkinlikler/${etkinlik.slug}`} className="group flex flex-col bg-[#111113] rounded-sm overflow-hidden border border-white/5 hover:border-white/20 transition-all cursor-pointer h-full relative">
+
+                                            {/* NEXT/IMAGE ENTEGRASYONU */}
                                             <div className="h-48 bg-[#18181b] relative overflow-hidden border-b border-white/5">
-                                                <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"></div>
-                                                <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-sm font-mono">{etkinlik.gorsel}</div>
+                                                {etkinlik.gorsel?.startsWith("/") ? (
+                                                    <Image src={etkinlik.gorsel} alt={etkinlik.baslik} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
+                                                ) : (
+                                                    <>
+                                                        <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105 bg-[#18181b]"></div>
+                                                        <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-sm font-mono">{etkinlik.gorsel}</div>
+                                                    </>
+                                                )}
                                                 <ArrowUpRight size={20} className="absolute top-4 right-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 bg-black/50 rounded-full p-1 backdrop-blur-sm" />
                                             </div>
 
                                             <div className="p-6 flex-1 flex flex-col">
                                                 <div className="flex items-center justify-between mb-3">
-                          <span className="text-xs font-mono text-brand-muted/70 flex items-center gap-2">
-                            {etkinlik.tarih}
-                          </span>
+                                                    <span className="text-xs font-mono text-brand-muted/70 flex items-center gap-2">
+                                                        {etkinlik.tarih}
+                                                    </span>
                                                     <span className="text-[10px] font-bold uppercase tracking-widest text-brand-muted/50">
-                            {etkinlik.kategori}
-                          </span>
+                                                        {etkinlik.kategori}
+                                                    </span>
                                                 </div>
-                                                {/* Başlık hover'da renk değiştirmez, temiz kalır */}
                                                 <h3 className="text-lg font-bold mb-3 text-white leading-tight">{etkinlik.baslik}</h3>
                                                 <p className="text-brand-muted text-sm line-clamp-2 mt-auto leading-relaxed">{etkinlik.ozet}</p>
                                             </div>
@@ -157,7 +158,6 @@ export default function EventsPage() {
                                     </ScrollReveal>
                                 ))}
                             </div>
-
                         </div>
                     );
                 })}

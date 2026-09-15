@@ -1,101 +1,117 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowLeft, Image as ImageIcon } from "lucide-react";
 import { etkinlikler } from "../../data/siteData";
 import ScrollReveal from "../../components/ScrollReveal";
 
-export function generateMetadata({ params }: { params: { slug: string } }) {
-    const event = etkinlikler.find(e => e.slug === params.slug);
+type Params = Promise<{ slug: string }>;
+
+export async function generateMetadata({ params }: { params: Params }) {
+    const { slug } = await params;
+    const event = etkinlikler.find(e => e.slug === slug);
     if (!event) return { title: "Etkinlik Bulunamadı" };
     return { title: `${event.baslik} | YAGE Etkinlikleri`, description: event.ozet };
 }
 
-export default function EventDetailPage({ params }: { params: { slug: string } }) {
-    const event = etkinlikler.find(e => e.slug === params.slug);
+export default async function EventDetailPage({ params }: { params: Params }) {
+    const { slug } = await params;
+    const event = etkinlikler.find(e => e.slug === slug);
 
     if (!event) return notFound();
 
     return (
-        <main className="flex flex-col min-h-screen bg-[#09090b] pt-32 pb-24">
+        <main className="flex flex-col min-h-screen bg-[#09090b] pt-32 pb-32">
 
-            {/* ÜST BİLGİ VE GERİ BUTONU */}
-            <section className="max-w-4xl mx-auto px-6 w-full mb-10">
+            {/* İçerik Kapsayıcısı (Okuma konforu için max-w-5xl) */}
+            <article className="max-w-5xl mx-auto px-6 w-full">
+
+                {/* GERİ DÖN & ÜST METADATA */}
                 <ScrollReveal>
-                    <Link href="/etkinlikler" className="inline-flex items-center gap-2 text-sm text-brand-muted hover:text-white transition-colors mb-8 group">
-                        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Etkinlikler
+                    <Link href="/etkinlikler" className="inline-flex items-center gap-2 text-xs font-mono tracking-widest text-brand-muted hover:text-white transition-colors uppercase mb-12 group">
+                        <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> ETKİNLİKLER ARŞİVİ
                     </Link>
 
-                    {/* Kategori ve Tarih (Minimal Metadata) */}
-                    <div className="flex items-center gap-3 mb-4 font-mono text-xs text-brand-muted">
-                        <span className="text-white uppercase tracking-wider font-bold">{event.kategori}</span>
-                        <span>/</span>
-                        <span>{event.tarih}</span>
+                    <div className="flex items-center gap-3 mb-6 font-mono text-xs">
+                        <span className="text-brand-primary font-bold uppercase tracking-[0.2em]">{event.kategori}</span>
+                        <span className="text-white/20">/</span>
+                        <span className="text-brand-muted uppercase tracking-widest">{event.tarih}</span>
                     </div>
 
-                    {/* Başlık ve Özet */}
-                    <h1 className="text-4xl md:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-                        {event.baslik}
+                    <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tighter mb-12 leading-[1.1]">
+                        {event.baslik}<span className="text-brand-primary">.</span>
                     </h1>
-                    <p className="text-xl text-brand-muted/90 leading-relaxed max-w-3xl">
-                        {event.ozet}
-                    </p>
-                </ScrollReveal>
-            </section>
-
-            {/* ANA GÖRSEL (rounded-sm ile geometrik keskinlik) */}
-            <section className="max-w-5xl mx-auto px-6 w-full mb-16">
-                <ScrollReveal delay={100}>
-                    <div className="w-full h-[40vh] md:h-[55vh] bg-[#111113] rounded-sm border border-white/5 flex items-center justify-center relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(0,0,0,0.5))]"></div>
-                        <span className="text-brand-muted/30 font-mono text-sm z-10">{event.gorsel} - ANA GÖRSEL</span>
-                    </div>
-                </ScrollReveal>
-            </section>
-
-            {/* İÇERİK VE DÜZ METADATA BLOKLARI (Kutu Tasarımı Kaldırıldı) */}
-            <section className="max-w-4xl mx-auto px-6 w-full mb-24">
-                <ScrollReveal className="mb-16">
-                    <h2 className="text-xs font-mono font-bold text-brand-muted uppercase tracking-widest mb-6">ETKİNLİK HAKKINDA</h2>
-                    <div className="text-brand-muted/90 leading-relaxed space-y-6 text-lg border-l border-white/10 pl-6">
-                        <p>{event.aciklama}</p>
-                    </div>
                 </ScrollReveal>
 
-                {/* Düz Metadata Satırı (Tarih - Konum - Düzenleyen) */}
-                <ScrollReveal delay={150} className="grid grid-cols-1 md:grid-cols-3 gap-8 py-10 border-y border-white/10 mb-16">
-                    <div>
-                        <div className="text-[10px] font-mono text-brand-muted/50 uppercase tracking-widest mb-1">TARİH</div>
-                        <div className="text-white font-medium">{event.tarih}</div>
-                        <div className="text-brand-muted text-xs font-mono mt-0.5">{event.yil}</div>
-                    </div>
-                    <div>
-                        <div className="text-[10px] font-mono text-brand-muted/50 uppercase tracking-widest mb-1">KONUM</div>
-                        <div className="text-white font-medium">{event.konum}</div>
-                    </div>
-                    <div>
-                        <div className="text-[10px] font-mono text-brand-muted/50 uppercase tracking-widest mb-1">DÜZENLEYEN</div>
-                        <div className="text-white font-medium">YAGE ({event.kategori} Ekibi)</div>
+                {/* DEV ANA GÖRSEL (Statik, Alta Doğru Eriyen) */}
+                <ScrollReveal delay={100} className="relative w-full h-[50vh] md:h-[65vh] rounded-sm overflow-hidden mb-12 border border-white/5">
+                    {event.gorsel.startsWith("/") ? (
+                        <Image
+                            src={event.gorsel}
+                            alt={event.baslik}
+                            fill
+                            priority
+                            className="object-cover" // Hover zoom kaldırıldı
+                        />
+                    ) : (
+                        <div className="absolute inset-0 flex items-center justify-center text-brand-muted/30 font-mono text-sm bg-[#111113]">
+                            {event.gorsel} - ANA GÖRSEL
+                        </div>
+                    )}
+
+                    {/* Alta Doğru Saydamlaşma (Zemin rengi olan #09090b'ye kaynar) */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#09090b] via-[#09090b]/20 to-transparent pointer-events-none"></div>
+                </ScrollReveal>
+
+                {/* İNCE BİLGİ BANDI (Düzenleyen kaldırıldı) */}
+                <ScrollReveal delay={150}>
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-8 md:gap-16 py-5 border-y border-white/5 mb-16">
+                        <div>
+                            <div className="text-[10px] font-mono text-brand-muted/40 uppercase tracking-[0.2em] mb-1.5">TARİH / YIL</div>
+                            <div className="text-white font-medium text-sm">{event.tarih} <span className="text-brand-muted ml-1">({event.yil})</span></div>
+                        </div>
+                        <div>
+                            <div className="text-[10px] font-mono text-brand-muted/40 uppercase tracking-[0.2em] mb-1.5">KONUM</div>
+                            <div className="text-white font-medium text-sm">{event.konum}</div>
+                        </div>
                     </div>
                 </ScrollReveal>
 
-                {/* Etkinlikten Kareler (Varsa) */}
+                {/* UZUN METİN (Çoklu Paragraf Desteği) */}
+                <ScrollReveal>
+                    <div className="prose prose-invert prose-lg max-w-none text-brand-muted/90 leading-relaxed font-medium">
+                        {/* siteData.ts içinde metne \n (alt satır) eklersen ayrı paragraf olarak basar */}
+                        {event.aciklama.split('\n').map((paragraf, index) => (
+                            paragraf.trim() !== "" ? <p key={index} className="mb-6">{paragraf}</p> : null
+                        ))}
+                    </div>
+                </ScrollReveal>
+
+                {/* ETKİNLİKTEN KARELER (GALERİ) */}
                 {event.galeri && event.galeri.length > 0 && (
-                    <ScrollReveal>
-                        <h2 className="text-xs font-mono font-bold text-brand-muted uppercase tracking-widest mb-8 flex items-center gap-2">
-                            <ImageIcon size={16} /> ETKİNLİKTEN KARELER
-                        </h2>
+                    <ScrollReveal className="mt-24 border-t border-white/5 pt-16">
+                        <div className="flex items-center gap-3 mb-10">
+                            <ImageIcon size={18} className="text-brand-primary" />
+                            <h2 className="text-sm font-bold text-white uppercase tracking-widest">
+                                KARELER
+                            </h2>
+                        </div>
+
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                             {event.galeri.map((foto, idx) => (
-                                <div key={idx} className="aspect-square bg-[#111113] rounded-sm border border-white/5 flex items-center justify-center text-brand-muted/30 text-xs font-mono hover:border-white/20 transition-colors cursor-pointer overflow-hidden relative group">
-                                    <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105"></div>
-                                    <span className="relative z-10">{foto}</span>
+                                <div key={idx} className="aspect-square bg-[#111113] rounded-sm border border-white/5 flex items-center justify-center text-brand-muted/30 text-xs font-mono hover:border-white/30 transition-colors cursor-pointer overflow-hidden relative group">
+                                    {foto.startsWith("/") ? (
+                                        <Image src={foto} alt={`${event.baslik} Kare ${idx + 1}`} fill className="object-cover opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                                    ) : (
+                                        <span className="relative z-10">{foto}</span>
+                                    )}
                                 </div>
                             ))}
                         </div>
                     </ScrollReveal>
                 )}
-            </section>
 
+            </article>
         </main>
     );
 }
