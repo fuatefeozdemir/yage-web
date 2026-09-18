@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { yonetimKurulu } from "../data/siteData";
 import ScrollReveal from "../components/ScrollReveal";
 
@@ -34,15 +34,12 @@ export default function TeamPage() {
         "Eğitim ve Proje Geliştirme"
     ];
 
-    // Yönetim Sekmesi Verileri
     const baskan = yonetimKurulu.filter(k => k.gorev === "Başkan" || k.gorev === "Yönetim Kurulu Başkanı");
     const baskanYardimcilari = yonetimKurulu.filter(k => k.gorev.includes("Başkan Yardımcısı"));
     const birimBaskanlari = yonetimKurulu.filter(k => k.gorev.includes("Başkanı") && !k.gorev.includes("Yardımcısı") && k.gorev !== "Başkan" && k.gorev !== "Yönetim Kurulu Başkanı");
 
-    // Ortak Kişi Kartı Bileşeni
     const PersonCard = ({ kisi, roleOverride, hideRole = false }: { kisi: any, roleOverride?: string | null, hideRole?: boolean }) => (
         <div className="flex flex-col items-center group">
-            {/* Fotoğraf ~128px (w-28/32). Hover'da büyüme (scale) yok, sadece grayscale kalkar */}
             <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-[#111113] mb-4 border border-white/5 overflow-hidden relative transition-colors duration-500 group-hover:border-brand-primary/30 grayscale group-hover:grayscale-0 shadow-lg">
                 {kisi.foto && kisi.foto.startsWith("/") ? (
                     <Image src={kisi.foto} alt={kisi.isim} fill className="object-cover" />
@@ -57,7 +54,6 @@ export default function TeamPage() {
                 <p className="text-brand-muted text-xs md:text-sm mt-1 text-center">{roleOverride || kisi.gorev}</p>
             )}
 
-            {/* İkonlar varsayılan olarak soluk (opacity-60), hover ile netleşir */}
             <div className="flex gap-4 mt-3 opacity-60 md:group-hover:opacity-100 transition-opacity duration-300">
                 {kisi.github && kisi.github !== "#" && (
                     <a href={kisi.github} target="_blank" rel="noreferrer" className="text-brand-muted hover:text-white transition-colors">
@@ -69,9 +65,6 @@ export default function TeamPage() {
                         <LinkedinIcon size={16} />
                     </a>
                 )}
-                <a href={`mailto:iletisim@yage.gazi.edu.tr`} className="text-brand-muted hover:text-white transition-colors">
-                    <Mail size={16} />
-                </a>
             </div>
         </div>
     );
@@ -79,8 +72,7 @@ export default function TeamPage() {
     return (
         <main className="flex flex-col min-h-screen bg-[#09090b]">
 
-            {/* 1. SADE HERO */}
-            <section className="w-full pt-40 pb-10 px-6 bg-[#09090b]">
+            <section className="w-full pt-40 pb-16 px-6 bg-[#09090b] border-b border-white/5">
                 <div className="max-w-6xl mx-auto">
                     <ScrollReveal>
                         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">
@@ -90,15 +82,14 @@ export default function TeamPage() {
                 </div>
             </section>
 
-            {/* 2. YATAY KUTULU SEKMELER (NAVİGASYON) */}
-            <section className="w-full pt-2 pb-6 sticky top-[72px] md:top-[90px] z-40 bg-[#09090b]/90 backdrop-blur-md px-6">
+            <section className="w-full pt-4 pb-6 sticky top-[72px] md:top-[90px] z-40 bg-[#09090b]/90 backdrop-blur-md px-6">
                 <ScrollReveal delay={0} className="max-w-6xl mx-auto flex justify-center pointer-events-none">
-                    <div className="bg-[#111113] border border-white/5 p-1.5 rounded-xl flex items-center gap-1 overflow-x-auto max-w-full hide-scrollbar pointer-events-auto shadow-xl">
+                    <div className="bg-[#111113] border border-white/5 p-1.5 rounded-sm flex items-center gap-1 overflow-x-auto max-w-full hide-scrollbar pointer-events-auto shadow-xl">
                         {tabs.map(tab => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
-                                className={`px-5 py-2.5 rounded-lg text-xs md:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-300 ${
+                                className={`px-5 py-2.5 rounded-sm text-xs md:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-300 ${
                                     activeTab === tab
                                         ? "bg-brand-primary text-white shadow-md"
                                         : "text-brand-muted/70 hover:text-white hover:bg-white/5"
@@ -111,88 +102,47 @@ export default function TeamPage() {
                 </ScrollReveal>
             </section>
 
-            {/* 3. DİNAMİK EKİP İÇERİĞİ */}
             <section className="max-w-6xl mx-auto px-6 w-full pt-8 pb-24 min-h-[50vh]">
-
-                {/* YÖNETİM SEKMESİ AKTİFKEN */}
                 {activeTab === "Yönetim" && (
                     <div key="yonetim-tab" className="animate-fade-in flex flex-col items-center gap-10 md:gap-14">
-
-                        {/* 1. Kademe: Başkan */}
-                        {baskan.length > 0 && (
-                            <ScrollReveal>
-                                <PersonCard kisi={baskan[0]} />
-                            </ScrollReveal>
-                        )}
-
-                        {/* 2. Kademe: Başkan Yardımcıları */}
+                        {baskan.length > 0 && <ScrollReveal><PersonCard kisi={baskan[0]} /></ScrollReveal>}
                         {baskanYardimcilari.length > 0 && (
                             <div className="flex flex-wrap justify-center gap-8 md:gap-16">
-                                {baskanYardimcilari.map((kisi, i) => (
-                                    <ScrollReveal key={i} delay={i * 100}>
-                                        <PersonCard kisi={kisi} />
-                                    </ScrollReveal>
-                                ))}
+                                {baskanYardimcilari.map((kisi, i) => <ScrollReveal key={i} delay={i * 100}><PersonCard kisi={kisi} /></ScrollReveal>)}
                             </div>
                         )}
-
-                        {/* 3. Kademe: Birim Başkanları */}
                         {birimBaskanlari.length > 0 && (
                             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-6 md:gap-x-8 w-full justify-items-center">
-                                {birimBaskanlari.map((kisi, i) => (
-                                    <ScrollReveal key={`birim-${i}`} delay={i * 50}>
-                                        <PersonCard kisi={kisi} roleOverride={`${kisi.birim} Birim Başkanı`} />
-                                    </ScrollReveal>
-                                ))}
+                                {birimBaskanlari.map((kisi, i) => <ScrollReveal key={`birim-${i}`} delay={i * 50}><PersonCard kisi={kisi} roleOverride={`${kisi.birim} Birim Başkanı`} /></ScrollReveal>)}
                             </div>
                         )}
-
                     </div>
                 )}
-
-                {/* BİRİM SEKMELERİ AKTİFKEN */}
                 {activeTab !== "Yönetim" && (() => {
                     const activeBirimBaskani = yonetimKurulu.find(k => k.birim === activeTab && k.gorev.includes("Başkanı"));
                     const activeBirimUyeleri = yonetimKurulu.filter(k => k.birim === activeTab && !k.gorev.includes("Başkanı"));
-
                     return (
                         <div key={`birim-tab-${activeTab}`} className="animate-fade-in flex flex-col items-center gap-10 md:gap-14">
-
-                            {/* Birim Başkanı Üstte Tek Başına - DÜZELTİLEN KISIM BURASI */}
-                            {activeBirimBaskani && (
-                                <ScrollReveal>
-                                    <PersonCard kisi={activeBirimBaskani} roleOverride={`${activeTab} Birim Başkanı`} />
-                                </ScrollReveal>
-                            )}
-
-                            {/* Birim Üyeleri */}
+                            {activeBirimBaskani && <ScrollReveal><PersonCard kisi={activeBirimBaskani} roleOverride={`${activeTab} Birim Başkanı`} /></ScrollReveal>}
                             {activeBirimUyeleri.length > 0 && (
                                 <div className="flex flex-wrap justify-center gap-8 md:gap-12 w-full">
-                                    {activeBirimUyeleri.map((kisi, i) => (
-                                        <ScrollReveal key={`uye-${i}`} delay={i * 50}>
-                                            <PersonCard kisi={kisi} hideRole={true} />
-                                        </ScrollReveal>
-                                    ))}
+                                    {activeBirimUyeleri.map((kisi, i) => <ScrollReveal key={`uye-${i}`} delay={i * 50}><PersonCard kisi={kisi} hideRole={true} /></ScrollReveal>)}
                                 </div>
                             )}
-
                         </div>
                     );
                 })()}
-
             </section>
 
-            {/* 4. SADE CTA (Kapanış) */}
-            <section className="py-24 border-t border-white/5 text-center px-6">
+            <section className="py-24 border-t border-white/5 text-center px-6 bg-[#0c0c0f]">
                 <ScrollReveal>
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">YAGE'ye katılmak ister misin?</h2>
-                    <p className="text-brand-muted mb-8 text-sm md:text-base">Ekibimizin bir parçası ol.</p>
-                    <Link href="/katil" className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-3.5 rounded-sm font-bold hover:bg-white hover:text-black transition-colors shadow-lg shadow-brand-primary/10">
-                        Bize Katıl <ArrowRight size={18} />
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">Ekipte görev almak ister misin?</h2>
+                    <p className="text-brand-muted mb-8 text-sm md:text-base">Çalışma gruplarımızda ve projelerimizde yer al.</p>
+                    <Link href="/katil" className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-3.5 rounded-sm font-bold hover:bg-white hover:text-black transition-colors shadow-lg">
+                        Ekip Başvuru Formu <ArrowRight size={18} />
                     </Link>
                 </ScrollReveal>
             </section>
-
         </main>
     );
 }

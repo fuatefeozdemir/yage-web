@@ -44,8 +44,7 @@ export default function ContactPage() {
     return (
         <main className="flex flex-col min-h-screen bg-[#09090b]">
 
-            {/* 1. SADE HERO ALANI */}
-            <section className="w-full pt-32 pb-12 px-6">
+            <section className="w-full pt-40 pb-16 px-6 border-b border-white/5">
                 <div className="max-w-6xl mx-auto">
                     <ScrollReveal>
                         <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
@@ -58,18 +57,15 @@ export default function ContactPage() {
                 </div>
             </section>
 
-            {/* 2. ANA BÖLÜM (BİZE ULAŞIN & FORM) */}
-            <section className="w-full pb-24 px-6">
+            <section className="w-full pb-24 px-6 pt-16">
                 <div className="max-w-6xl mx-auto">
                     <ScrollReveal delay={100}>
                         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8">
 
-                            {/* SOL KOLON: Bize Ulaşın */}
                             <div className="md:col-span-4 flex flex-col gap-10">
                                 <h2 className="text-2xl font-bold text-white mb-2">Bize Ulaşın</h2>
 
                                 <div className="flex flex-col gap-8">
-                                    {/* E-posta */}
                                     <div>
                                         <h3 className="text-sm font-semibold text-brand-muted mb-2">E-posta</h3>
                                         <a href="mailto:yagegazi@gmail.com" className="text-base text-white hover:text-brand-primary transition-colors">
@@ -77,7 +73,6 @@ export default function ContactPage() {
                                         </a>
                                     </div>
 
-                                    {/* Sosyal Medya */}
                                     <div>
                                         <h3 className="text-sm font-semibold text-brand-muted mb-2">Sosyal Medya</h3>
                                         <ul className="flex flex-col gap-2">
@@ -93,7 +88,6 @@ export default function ContactPage() {
                                         </ul>
                                     </div>
 
-                                    {/* Konum */}
                                     <div>
                                         <h3 className="text-sm font-semibold text-brand-muted mb-2">Konum</h3>
                                         <p className="text-base text-white leading-relaxed">
@@ -105,7 +99,6 @@ export default function ContactPage() {
                                 </div>
                             </div>
 
-                            {/* SAĞ KOLON: Mesaj Gönder */}
                             <div className="md:col-span-8 md:pl-16">
                                 <h2 className="text-2xl font-bold text-white mb-8">Mesaj Gönder</h2>
 
@@ -223,7 +216,6 @@ export default function ContactPage() {
                 </div>
             </section>
 
-            {/* 3. ALT BÖLÜM (Kompakt Harita) */}
             <section className="w-full border-t border-white/5 py-24 px-6 bg-[#0c0c0f]">
                 <ScrollReveal>
                     <div className="max-w-6xl mx-auto">

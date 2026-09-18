@@ -1,3 +1,17 @@
+export const siteConfig = {
+    iletisim: {
+        email: "yagegazi@gmail.com",
+        adresDetay: "Gazi Üniversitesi Teknoloji Fakültesi, Ankara",
+        kisaAdres: "Teknoloji Fakültesi, Ankara"
+    },
+    sosyal: {
+        instagram: "https://www.instagram.com/gaziyage",
+        linkedin: "https://www.linkedin.com/company/gaziyage",
+        github: "https://github.com/orgs/teamtulpar/",
+        whatsapp: "https://chat.whatsapp.com/I0uLyeqGZ12LMNTKAYaCIn"
+    }
+};
+
 // ==========================================
 // TİP TANIMLAMALARI (TYPESCRIPT INTERFACES)
 // ==========================================
