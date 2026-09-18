@@ -321,13 +321,13 @@ export const yonetimKurulu: EkipUyesi[] = [
     { isim: "Zeynep Baykan", gorev: "Başkan Yardımcısı", birim: "Yönetim", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/zeynep-baykan.jpg" },
 
     // ETKİNLİK VE ORGANİZASYON
-    { isim: "Mustafa Emir Taşkıran", gorev: "Birim Başkanı", birim: "Etkinlik ve Organizasyon", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/elif-demir.jpg" },
+    { isim: "Mustafa Emir Taşkıran", gorev: "Birim Başkanı", birim: "Etkinlik ve Organizasyon", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/mustafa-emir-taskiran.jpg" },
     { isim: "Kerem Aykut", gorev: "Birim Üyesi", birim: "Etkinlik ve Organizasyon", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/kerem-aykut.jpg" },
     { isim: "Hayat Yücel", gorev: "Birim Üyesi", birim: "Etkinlik ve Organizasyon", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/hayat-yucel.jpg" },
     { isim: "Ecrin Nisa Gezer", gorev: "Birim Üyesi", birim: "Etkinlik ve Organizasyon", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/ecrin-nisa-gezer.jpg" },
 
     // SPONSORLUK
-    { isim: "Beyza Ahmet", gorev: "Birim Başkanı", birim: "Sponsorluk", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/cemre-yildiz.jpg" },
+    { isim: "Beyza Ahmet", gorev: "Birim Başkanı", birim: "Sponsorluk", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/beyza-ahmet.jpg" },
     { isim: "-", gorev: "Birim Üyesi", birim: "Sponsorluk", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/-.jpg" },
 
     // SOSYAL MEDYA
