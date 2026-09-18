@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
-import { Mail, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import { Mail, ArrowRight } from "lucide-react";
 import { yonetimKurulu } from "../data/siteData";
 import ScrollReveal from "../components/ScrollReveal";
 
@@ -23,147 +23,176 @@ const LinkedinIcon = ({ size = 16, className = "" }) => (
 );
 
 export default function TeamPage() {
-    const [activeBirim, setActiveBirim] = useState("TÜMÜ");
+    const [activeTab, setActiveTab] = useState("Yönetim");
 
-    const birimler = ["TÜMÜ", ...Array.from(new Set(yonetimKurulu.map(k => k.birim)))];
+    const tabs = [
+        "Yönetim",
+        "Etkinlik ve Organizasyon",
+        "Sponsorluk",
+        "Sosyal Medya",
+        "İletişim",
+        "Eğitim ve Proje Geliştirme"
+    ];
 
-    const filteredEkip = activeBirim === "TÜMÜ"
-        ? yonetimKurulu
-        : yonetimKurulu.filter(k => k.birim === activeBirim);
+    // Yönetim Sekmesi Verileri
+    const baskan = yonetimKurulu.filter(k => k.gorev === "Başkan" || k.gorev === "Yönetim Kurulu Başkanı");
+    const baskanYardimcilari = yonetimKurulu.filter(k => k.gorev.includes("Başkan Yardımcısı"));
+    const birimBaskanlari = yonetimKurulu.filter(k => k.gorev.includes("Başkanı") && !k.gorev.includes("Yardımcısı") && k.gorev !== "Başkan" && k.gorev !== "Yönetim Kurulu Başkanı");
 
-    const groupedEkip = filteredEkip.reduce((acc, kisi) => {
-        if (!acc[kisi.birim]) acc[kisi.birim] = [];
-        acc[kisi.birim].push(kisi);
-        return acc;
-    }, {} as Record<string, typeof yonetimKurulu>);
+    // Ortak Kişi Kartı Bileşeni
+    const PersonCard = ({ kisi, roleOverride, hideRole = false }: { kisi: any, roleOverride?: string | null, hideRole?: boolean }) => (
+        <div className="flex flex-col items-center group">
+            {/* Fotoğraf ~128px (w-28/32). Hover'da büyüme (scale) yok, sadece grayscale kalkar */}
+            <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-[#111113] mb-4 border border-white/5 overflow-hidden relative transition-colors duration-500 group-hover:border-brand-primary/30 grayscale group-hover:grayscale-0 shadow-lg">
+                {kisi.foto && kisi.foto.startsWith("/") ? (
+                    <Image src={kisi.foto} alt={kisi.isim} fill className="object-cover" />
+                ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-xs font-mono group-hover:opacity-0 transition-opacity">IMG</div>
+                )}
+            </div>
 
-    const watermarkMap: Record<string, string> = {
-        "Yönetim": "BOARD",
-        "Etkinlik ve Organizasyon": "EVENTS",
-        "Sponsorluk": "SPONSORS",
-        "Sosyal Medya": "MEDIA",
-        "İletişim": "CONTACT",
-        "Eğitim ve Proje Geliştirme": "R&D / EDU"
-    };
+            <h3 className="text-base md:text-lg font-bold text-white text-center leading-tight">{kisi.isim}</h3>
+
+            {!hideRole && (
+                <p className="text-brand-muted text-xs md:text-sm mt-1 text-center">{roleOverride || kisi.gorev}</p>
+            )}
+
+            {/* İkonlar varsayılan olarak soluk (opacity-60), hover ile netleşir */}
+            <div className="flex gap-4 mt-3 opacity-60 md:group-hover:opacity-100 transition-opacity duration-300">
+                {kisi.github && kisi.github !== "#" && (
+                    <a href={kisi.github} target="_blank" rel="noreferrer" className="text-brand-muted hover:text-white transition-colors">
+                        <GithubIcon size={16} />
+                    </a>
+                )}
+                {kisi.linkedin && kisi.linkedin !== "#" && (
+                    <a href={kisi.linkedin} target="_blank" rel="noreferrer" className="text-brand-muted hover:text-[#0077B5] transition-colors">
+                        <LinkedinIcon size={16} />
+                    </a>
+                )}
+                <a href={`mailto:iletisim@yage.gazi.edu.tr`} className="text-brand-muted hover:text-white transition-colors">
+                    <Mail size={16} />
+                </a>
+            </div>
+        </div>
+    );
 
     return (
         <main className="flex flex-col min-h-screen bg-[#09090b]">
-            <section className="relative w-full pt-40 pb-12 border-b border-white/5 overflow-hidden bg-[#09090b]">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.015)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_20%,transparent_100%)] pointer-events-none"></div>
 
-                <div className="max-w-6xl mx-auto px-6 relative z-10 flex flex-col justify-between">
+            {/* 1. SADE HERO */}
+            <section className="w-full pt-40 pb-10 px-6 bg-[#09090b]">
+                <div className="max-w-6xl mx-auto">
                     <ScrollReveal>
-                        <div className="flex items-center gap-4 mb-6">
-                            <span className="text-brand-primary font-mono text-sm">/</span>
-                            <span className="text-brand-muted/50 font-mono text-xs tracking-[0.2em] uppercase">TEAM / ORGANIZATION</span>
-                        </div>
-                        <h1 className="text-5xl md:text-7xl font-extrabold text-white tracking-tighter mb-6">
-                            Ekibimiz<span className="text-brand-primary">.</span>
+                        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight">
+                            Ekibimiz
                         </h1>
-                        <p className="text-lg text-brand-muted/80 max-w-xl leading-relaxed">
-                            Fikri koda, kodu sisteme dönüştüren çekirdek kadro. Sınırları zorlayan projelerin arkasındaki beyinler.
-                        </p>
                     </ScrollReveal>
-
-                    <div className="absolute bottom-0 right-6 hidden md:block text-right pb-2">
-                        <span className="text-brand-muted/30 font-mono text-xs tracking-[0.2em] uppercase leading-relaxed">
-                          ACTIVE MEMBERS<br/>[ {yonetimKurulu.length} DEVELOPERS ]
-                        </span>
-                    </div>
                 </div>
             </section>
 
-            <section className="max-w-6xl mx-auto px-6 w-full pt-12 pb-8 sticky top-[72px] z-40 bg-[#09090b]/90 backdrop-blur-md border-b border-white/5">
-                <ScrollReveal delay={0}>
-                    <div className="flex gap-8 overflow-x-auto hide-scrollbar pb-1">
-                        {birimler.map(birim => (
+            {/* 2. YATAY KUTULU SEKMELER (NAVİGASYON) */}
+            <section className="w-full pt-2 pb-6 sticky top-[72px] md:top-[90px] z-40 bg-[#09090b]/90 backdrop-blur-md px-6">
+                <ScrollReveal delay={0} className="max-w-6xl mx-auto flex justify-center pointer-events-none">
+                    <div className="bg-[#111113] border border-white/5 p-1.5 rounded-xl flex items-center gap-1 overflow-x-auto max-w-full hide-scrollbar pointer-events-auto shadow-xl">
+                        {tabs.map(tab => (
                             <button
-                                key={birim}
-                                onClick={() => setActiveBirim(birim)}
-                                className={`pb-3 text-xs md:text-sm font-bold tracking-[0.15em] whitespace-nowrap uppercase transition-colors relative ${
-                                    activeBirim === birim
-                                        ? "text-white"
-                                        : "text-brand-muted/40 hover:text-brand-muted"
+                                key={tab}
+                                onClick={() => setActiveTab(tab)}
+                                className={`px-5 py-2.5 rounded-lg text-xs md:text-sm font-semibold tracking-wide whitespace-nowrap transition-all duration-300 ${
+                                    activeTab === tab
+                                        ? "bg-brand-primary text-white shadow-md"
+                                        : "text-brand-muted/70 hover:text-white hover:bg-white/5"
                                 }`}
                             >
-                                {birim}
-                                <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-brand-primary transition-transform duration-300 origin-left ${
-                                    activeBirim === birim ? "scale-x-100" : "scale-x-0"
-                                }`}></span>
+                                {tab}
                             </button>
                         ))}
                     </div>
                 </ScrollReveal>
             </section>
 
-            <section className="max-w-6xl mx-auto px-6 w-full pb-32 min-h-[50vh]">
-                {Object.keys(groupedEkip).map((birim) => (
-                    <div key={birim} className="relative mt-24 md:mt-32 mb-12">
-                        <div className="absolute top-0 left-0 -translate-y-12 md:-translate-y-20 z-0 pointer-events-none select-none overflow-hidden w-full">
-                          <span className="text-[6rem] md:text-[12rem] font-black text-white/[0.02] whitespace-nowrap tracking-tighter">
-                            {watermarkMap[birim] || birim.toUpperCase()}
-                          </span>
-                        </div>
+            {/* 3. DİNAMİK EKİP İÇERİĞİ */}
+            <section className="max-w-6xl mx-auto px-6 w-full pt-8 pb-24 min-h-[50vh]">
 
-                        <ScrollReveal delay={0} className="relative z-10 mb-12">
-                            <div className="flex items-center gap-6">
-                                <h2 className="text-2xl font-bold text-white font-mono uppercase tracking-widest">{birim} EKİBİ</h2>
-                                <div className="h-px bg-white/10 flex-1"></div>
+                {/* YÖNETİM SEKMESİ AKTİFKEN */}
+                {activeTab === "Yönetim" && (
+                    <div key="yonetim-tab" className="animate-fade-in flex flex-col items-center gap-10 md:gap-14">
+
+                        {/* 1. Kademe: Başkan */}
+                        {baskan.length > 0 && (
+                            <ScrollReveal>
+                                <PersonCard kisi={baskan[0]} />
+                            </ScrollReveal>
+                        )}
+
+                        {/* 2. Kademe: Başkan Yardımcıları */}
+                        {baskanYardimcilari.length > 0 && (
+                            <div className="flex flex-wrap justify-center gap-8 md:gap-16">
+                                {baskanYardimcilari.map((kisi, i) => (
+                                    <ScrollReveal key={i} delay={i * 100}>
+                                        <PersonCard kisi={kisi} />
+                                    </ScrollReveal>
+                                ))}
                             </div>
-                        </ScrollReveal>
+                        )}
 
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 md:gap-8 relative z-10">
-                            {groupedEkip[birim].map((kisi, i) => (
-                                <ScrollReveal key={i} delay={i * 50}>
-                                    <div className="flex flex-col items-center group">
+                        {/* 3. Kademe: Birim Başkanları */}
+                        {birimBaskanlari.length > 0 && (
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-6 md:gap-x-8 w-full justify-items-center">
+                                {birimBaskanlari.map((kisi, i) => (
+                                    <ScrollReveal key={`birim-${i}`} delay={i * 50}>
+                                        <PersonCard kisi={kisi} roleOverride={`${kisi.birim} Birim Başkanı`} />
+                                    </ScrollReveal>
+                                ))}
+                            </div>
+                        )}
 
-                                        {/* EKİP NEXT/IMAGE ENTEGRASYONU */}
-                                        <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-[#111113] mb-5 border border-white/5 overflow-hidden relative transition-all duration-500 group-hover:scale-105 group-hover:border-brand-primary/50 grayscale group-hover:grayscale-0 shadow-lg">
-                                            {(kisi as any).foto && (kisi as any).foto.startsWith("/") ? (
-                                                <Image src={(kisi as any).foto} alt={kisi.isim} fill className="object-cover" />
-                                            ) : (
-                                                <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-xs font-mono group-hover:opacity-0 transition-opacity">IMG</div>
-                                            )}
-                                        </div>
-
-                                        <h3 className="text-base md:text-lg font-bold text-white text-center leading-tight">{kisi.isim}</h3>
-                                        <p className="text-brand-muted/70 text-xs md:text-sm mt-1 text-center">{kisi.gorev}</p>
-
-                                        <div className="flex gap-4 mt-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
-                                            {kisi.github && kisi.github !== "#" && (
-                                                <a href={kisi.github} target="_blank" rel="noreferrer" className="text-brand-muted/50 hover:text-white transition-colors">
-                                                    <GithubIcon size={16} />
-                                                </a>
-                                            )}
-                                            {kisi.linkedin && kisi.linkedin !== "#" && (
-                                                <a href={kisi.linkedin} target="_blank" rel="noreferrer" className="text-brand-muted/50 hover:text-[#0077B5] transition-colors">
-                                                    <LinkedinIcon size={16} />
-                                                </a>
-                                            )}
-                                            <a href={`mailto:iletisim@yage.gazi.edu.tr`} className="text-brand-muted/50 hover:text-white transition-colors">
-                                                <Mail size={16} />
-                                            </a>
-                                        </div>
-                                    </div>
-                                </ScrollReveal>
-                            ))}
-                        </div>
                     </div>
-                ))}
+                )}
+
+                {/* BİRİM SEKMELERİ AKTİFKEN */}
+                {activeTab !== "Yönetim" && (() => {
+                    const activeBirimBaskani = yonetimKurulu.find(k => k.birim === activeTab && k.gorev.includes("Başkanı"));
+                    const activeBirimUyeleri = yonetimKurulu.filter(k => k.birim === activeTab && !k.gorev.includes("Başkanı"));
+
+                    return (
+                        <div key={`birim-tab-${activeTab}`} className="animate-fade-in flex flex-col items-center gap-10 md:gap-14">
+
+                            {/* Birim Başkanı Üstte Tek Başına - DÜZELTİLEN KISIM BURASI */}
+                            {activeBirimBaskani && (
+                                <ScrollReveal>
+                                    <PersonCard kisi={activeBirimBaskani} roleOverride={`${activeTab} Birim Başkanı`} />
+                                </ScrollReveal>
+                            )}
+
+                            {/* Birim Üyeleri */}
+                            {activeBirimUyeleri.length > 0 && (
+                                <div className="flex flex-wrap justify-center gap-8 md:gap-12 w-full">
+                                    {activeBirimUyeleri.map((kisi, i) => (
+                                        <ScrollReveal key={`uye-${i}`} delay={i * 50}>
+                                            <PersonCard kisi={kisi} hideRole={true} />
+                                        </ScrollReveal>
+                                    ))}
+                                </div>
+                            )}
+
+                        </div>
+                    );
+                })()}
+
             </section>
 
-            <section className="max-w-4xl mx-auto px-6 w-full pb-32 text-center">
+            {/* 4. SADE CTA (Kapanış) */}
+            <section className="py-24 border-t border-white/5 text-center px-6">
                 <ScrollReveal>
-                    <div className="p-8 md:p-12 rounded-2xl bg-gradient-to-b from-[#111113] to-[#09090b] border border-white/5 flex flex-col items-center justify-center relative overflow-hidden">
-                        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-px bg-gradient-to-r from-transparent via-brand-primary/50 to-transparent"></div>
-                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Sen de bu ekibin bir parçası ol.</h2>
-                        <p className="text-brand-muted text-sm md:text-base mb-8 max-w-lg">Yazılım, donanım veya araştırma... İlgini çeken alanda projeler üretmek ve kendini geliştirmek için başvurunu bekliyoruz.</p>
-                        <Link href="/katil" className="flex items-center gap-2 bg-brand-primary text-white px-8 py-3 rounded-md font-bold hover:bg-white hover:text-black transition-colors duration-300">
-                            Başvuru Formuna Git <ArrowUpRight size={18} />
-                        </Link>
-                    </div>
+                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">YAGE'ye katılmak ister misin?</h2>
+                    <p className="text-brand-muted mb-8 text-sm md:text-base">Ekibimizin bir parçası ol.</p>
+                    <Link href="/katil" className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-3.5 rounded-sm font-bold hover:bg-white hover:text-black transition-colors shadow-lg shadow-brand-primary/10">
+                        Bize Katıl <ArrowRight size={18} />
+                    </Link>
                 </ScrollReveal>
             </section>
+
         </main>
     );
 }
