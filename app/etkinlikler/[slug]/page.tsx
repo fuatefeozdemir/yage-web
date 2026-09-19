@@ -39,7 +39,7 @@ export default async function EventDetailPage({ params }: { params: Params }) {
 
                 <ScrollReveal delay={100} className="relative w-full h-[40vh] md:h-[60vh] rounded-sm overflow-hidden mb-12 border border-white/5 bg-brand-surface">
                     {event.gorsel.startsWith("/") ? (
-                        <Image src={event.gorsel} alt={event.baslik} fill priority className="object-cover" />
+                        <Image src={event.gorsel} alt={event.baslik} fill sizes="100vw" priority className="object-cover" />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-brand-muted/30 font-mono text-sm">
                             {event.gorsel}
@@ -77,7 +77,7 @@ export default async function EventDetailPage({ params }: { params: Params }) {
                             {event.galeri.map((foto, idx) => (
                                 <div key={idx} className="aspect-square bg-brand-surface rounded-sm border border-white/5 flex items-center justify-center text-brand-muted/30 text-xs font-mono overflow-hidden relative group cursor-pointer">
                                     {foto.startsWith("/") ? (
-                                        <Image src={foto} alt={`${event.baslik} Kare ${idx + 1}`} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                                        <Image src={foto} alt={`${event.baslik} Kare ${idx + 1}`} fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover transition-transform duration-500 group-hover:scale-105" />
                                     ) : (
                                         <span className="relative z-10">{foto}</span>
                                     )}

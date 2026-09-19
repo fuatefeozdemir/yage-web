@@ -7,16 +7,19 @@ import { Phone, ArrowUpRight } from 'lucide-react';
 import { siteConfig } from '../data/siteData';
 
 const AetherHero = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (!canvas) return;
+        const container = containerRef.current;
+        if (!canvas || !container) return;
 
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
         let animationFrameId: number;
+        let isAnimating = false;
         let particles: Particle[] = [];
         const mouse = { x: null as number | null, y: null as number | null, radius: 150 };
 
@@ -126,7 +129,8 @@ const AetherHero = () => {
         };
 
         const animate = () => {
-            animationFrameId = requestAnimationFrame(animate);
+            if (!isAnimating) return;
+
             ctx!.fillStyle = '#09090b';
             ctx!.fillRect(0, 0, innerWidth, innerHeight);
 
@@ -134,6 +138,7 @@ const AetherHero = () => {
                 particles[i].update();
             }
             connect();
+            animationFrameId = requestAnimationFrame(animate);
         };
 
         const handleMouseMove = (event: MouseEvent) => {
@@ -149,14 +154,34 @@ const AetherHero = () => {
         window.addEventListener('mousemove', handleMouseMove);
         window.addEventListener('mouseout', handleMouseOut);
 
-        init();
-        animate();
+        // Performans Optimizasyonu: Sadece ekranda görünürken animasyonu çalıştır
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        if (!isAnimating) {
+                            isAnimating = true;
+                            init();
+                            animate();
+                        }
+                    } else {
+                        isAnimating = false;
+                        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    }
+                });
+            },
+            { threshold: 0 }
+        );
+
+        observer.observe(container);
 
         return () => {
             window.removeEventListener('resize', resizeCanvas);
             window.removeEventListener('mousemove', handleMouseMove);
             window.removeEventListener('mouseout', handleMouseOut);
+            isAnimating = false;
             cancelAnimationFrame(animationFrameId);
+            observer.disconnect();
         };
     }, []);
 
@@ -174,7 +199,7 @@ const AetherHero = () => {
     };
 
     return (
-        <div className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden bg-brand-bg border-b border-white/5">
+        <div ref={containerRef} className="relative min-h-screen w-full flex flex-col justify-center overflow-hidden bg-brand-bg border-b border-white/5">
             <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0"></canvas>
 
             <section className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-20 pointer-events-none">

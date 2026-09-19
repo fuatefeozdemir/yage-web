@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowRight, Loader2, CheckCircle2, XCircle } from "lucide-react";
+import { ArrowRight, Loader2, CheckCircle2, XCircle, RefreshCw } from "lucide-react";
 import ScrollReveal from "../components/ScrollReveal";
-import { siteConfig } from "../data/siteData"; // EKLENDİ
+import { siteConfig } from "../data/siteData";
 
 export default function ContactPage() {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -64,7 +64,6 @@ export default function ContactPage() {
                                 <div className="flex flex-col gap-8">
                                     <div>
                                         <h3 className="text-sm font-semibold text-brand-muted mb-2">E-posta</h3>
-                                        {/* siteConfig'den veri çekildi */}
                                         <a href={`mailto:${siteConfig.iletisim.email}`} className="text-base text-white hover:text-brand-primary transition-colors">
                                             {siteConfig.iletisim.email}
                                         </a>
@@ -72,7 +71,6 @@ export default function ContactPage() {
                                     <div>
                                         <h3 className="text-sm font-semibold text-brand-muted mb-2">Sosyal Medya</h3>
                                         <ul className="flex flex-col gap-2">
-                                            {/* siteConfig'den veri çekildi */}
                                             <li><a href={siteConfig.sosyal.instagram} target="_blank" rel="noreferrer" className="text-base text-white hover:text-[#E1306C] transition-colors">Instagram</a></li>
                                             <li><a href={siteConfig.sosyal.linkedin} target="_blank" rel="noreferrer" className="text-base text-white hover:text-[#0077b5] transition-colors">LinkedIn</a></li>
                                             <li><a href={siteConfig.sosyal.github} target="_blank" rel="noreferrer" className="text-base text-white hover:text-brand-muted transition-colors">GitHub</a></li>
@@ -80,7 +78,6 @@ export default function ContactPage() {
                                     </div>
                                     <div>
                                         <h3 className="text-sm font-semibold text-brand-muted mb-2">Konum</h3>
-                                        {/* siteConfig'den veri çekildi */}
                                         <p className="text-base text-white leading-relaxed" dangerouslySetInnerHTML={{ __html: siteConfig.iletisim.adresDetay.replace(', ', ' <br/><span class="text-brand-muted">') + '</span>' }}></p>
                                     </div>
                                 </div>
@@ -89,14 +86,19 @@ export default function ContactPage() {
                             <div className="md:col-span-8 md:pl-16">
                                 <h2 className="text-2xl font-bold text-white mb-8">Mesaj Gönder</h2>
                                 {status === "success" ? (
-                                    <div className="bg-brand-surface border border-brand-primary/30 p-8 rounded-sm flex flex-col items-center justify-center text-center animate-fade-in">
-                                        <CheckCircle2 size={40} className="text-brand-primary mb-4" />
-                                        <h3 className="text-xl font-bold text-white mb-2">Mesajınız gönderildi.</h3>
-                                        <p className="text-brand-muted text-sm max-w-sm mb-6">
-                                            Bize ulaştığınız için teşekkürler. En kısa sürede size dönüş yapacağız.
+                                    <div className="bg-brand-surface border border-brand-primary/30 p-10 rounded-sm flex flex-col items-center justify-center text-center animate-fade-in shadow-xl">
+                                        <div className="w-16 h-16 rounded-full bg-brand-primary/10 flex items-center justify-center mb-6">
+                                            <CheckCircle2 size={32} className="text-brand-primary" />
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-white mb-3">Mesajınız başarıyla gönderildi.</h3>
+                                        <p className="text-brand-muted text-base max-w-md mb-8 leading-relaxed">
+                                            Bize ulaştığınız için teşekkürler. İlettiğiniz mesaj en kısa sürede incelenip tarafınıza dönüş yapılacaktır.
                                         </p>
-                                        <button onClick={() => { setStatus("idle"); setFormData({ name: "", email: "", subject: "", message: "" }); }} className="text-sm font-medium text-brand-muted hover:text-white transition-colors border-b border-brand-muted/30 pb-1">
-                                            Yeni mesaj gönder
+                                        <button
+                                            onClick={() => { setStatus("idle"); setFormData({ name: "", email: "", subject: "", message: "" }); }}
+                                            className="inline-flex items-center gap-2 bg-brand-surface-light border border-white/10 text-white px-8 py-3 rounded-sm text-sm font-bold hover:border-brand-primary/50 hover:bg-brand-surface-lighter transition-all uppercase tracking-widest font-mono"
+                                        >
+                                            <RefreshCw size={14} /> Yeni Mesaj Gönder
                                         </button>
                                     </div>
                                 ) : (

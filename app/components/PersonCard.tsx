@@ -27,7 +27,7 @@ export default function PersonCard({ kisi, roleOverride, hideRole = false }: Per
         <div className="flex flex-col items-center group text-center">
             <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-brand-surface mb-4 border border-white/5 overflow-hidden relative transition-colors duration-500 group-hover:border-brand-primary/30 grayscale group-hover:grayscale-0 shadow-lg">
                 {kisi.foto && kisi.foto.startsWith("/") ? (
-                    <Image src={kisi.foto} alt={kisi.isim} fill className="object-cover" />
+                    <Image src={kisi.foto} alt={kisi.isim} fill sizes="(max-width: 768px) 112px, 128px" className="object-cover" />
                 ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-xs font-mono group-hover:opacity-0 transition-opacity">IMG</div>
                 )}

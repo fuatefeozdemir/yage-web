@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, Users, Calendar, Rocket } from "lucide-react";
@@ -9,7 +7,7 @@ import AnimatedCounter from "./components/AnimatedCounter";
 import EventCard from "./components/EventCard";
 import AetherHero from "./components/AetherHero";
 import PersonCard from "./components/PersonCard";
-import CtaLink from "./components/CtaLink"; // EKLENDİ
+import CtaLink from "./components/CtaLink";
 
 import { etkinlikler, faaliyetler, yonetimKurulu, vitrinKareler, destekciler } from "./data/siteData";
 
@@ -110,7 +108,7 @@ export default function Home() {
                       className="shrink-0 w-[85vw] md:w-auto md:flex-1 md:hover:flex-[3] transition-all duration-700 ease-in-out h-full bg-brand-surface-lighter snap-center relative group border-r border-white/5 overflow-hidden"
                   >
                     {gorsel.startsWith("/") ? (
-                        <Image src={gorsel} alt={`YAGE Vitrin ${i + 1}`} fill className="object-cover" />
+                        <Image src={gorsel} alt={`YAGE Vitrin ${i + 1}`} fill sizes="(max-width: 768px) 85vw, 33vw" className="object-cover" />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-sm font-mono z-0">IMG_{i+1}</div>
                     )}
@@ -160,7 +158,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* YENİ CTA BİLEŞENİ */}
             <CtaLink href="/katil" className="shrink-0 px-8 py-4">
               Başvuru Formu <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </CtaLink>
@@ -207,7 +204,7 @@ export default function Home() {
 
                       <div className="w-40 h-16 md:w-48 md:h-20 relative grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500">
                         {destekci.logo.startsWith("/") ? (
-                            <Image src={destekci.logo} alt={destekci.isim} fill className="object-contain" />
+                            <Image src={destekci.logo} alt={destekci.isim} fill sizes="(max-width: 768px) 160px, 192px" className="object-contain" />
                         ) : (
                             <span className="flex items-center justify-center w-full h-full border border-white/5 text-brand-muted/20 font-mono text-sm tracking-widest">[ LOGO ]</span>
                         )}
