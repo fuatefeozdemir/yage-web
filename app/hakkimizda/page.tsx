@@ -6,15 +6,11 @@ import ScrollReveal from "../components/ScrollReveal";
 
 export default function AboutPage() {
   return (
-      <main className="flex flex-col min-h-screen bg-[#09090b]">
-
-        {/* STANDART HERO (pt-40 pb-16) */}
+      <main className="flex flex-col min-h-screen bg-brand-bg">
         <section className="w-full pt-40 pb-16 px-6 border-b border-white/5">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
-              <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">
-                Hakkımızda
-              </h1>
+              <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tight mb-6">Hakkımızda</h1>
               <p className="text-lg md:text-xl text-brand-muted/80 max-w-2xl leading-relaxed">
                 YAGE, Gazi Üniversitesi öğrencilerinin yazılım ve teknoloji alanında bir araya geldiği öğrenci topluluğudur.
               </p>
@@ -22,14 +18,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* YAGE HAKKINDA */}
         <section className="w-full pb-24 px-6">
           <div className="max-w-6xl mx-auto pt-16">
             <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start">
               <div className="md:col-span-4">
-                <ScrollReveal>
-                  <h2 className="text-2xl font-bold text-white">YAGE Hakkında</h2>
-                </ScrollReveal>
+                <ScrollReveal><h2 className="text-2xl font-bold text-white">YAGE Hakkında</h2></ScrollReveal>
               </div>
               <div className="md:col-span-8">
                 <ScrollReveal delay={100}>
@@ -44,13 +37,9 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* NE YAPIYORUZ? */}
-        <section className="w-full py-24 px-6 bg-[#0c0c0f] border-t border-white/5">
+        <section className="w-full py-24 px-6 bg-brand-surface-dark border-t border-white/5">
           <div className="max-w-6xl mx-auto">
-            <ScrollReveal>
-              <h2 className="text-2xl font-bold text-white mb-16">Ne Yapıyoruz?</h2>
-            </ScrollReveal>
-
+            <ScrollReveal><h2 className="text-2xl font-bold text-white mb-16">Ne Yapıyoruz?</h2></ScrollReveal>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
               <ScrollReveal delay={0}>
                 <h3 className="text-lg font-bold text-white mb-3">Etkinlikler</h3>
@@ -72,8 +61,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* EKİP VE KÜLTÜR */}
-        <section className="w-full py-32 px-6 border-t border-white/5 bg-[#09090b]">
+        <section className="w-full py-32 px-6 border-t border-white/5 bg-brand-bg">
           <ScrollReveal>
             <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
               <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight mb-4">
@@ -82,13 +70,12 @@ export default function AboutPage() {
               <p className="text-brand-muted text-lg max-w-xl mb-8">
                 YAGE'de farklı bölümlerden ve farklı seviyelerden öğrenciler bir araya geliyor.
               </p>
-              <Link href="/ekip" className="inline-flex items-center gap-2 text-sm font-bold bg-[#111113] border border-white/10 text-white px-8 py-3 rounded-sm hover:border-white/30 transition-colors uppercase tracking-widest font-mono">
+              <Link href="/ekip" className="inline-flex items-center gap-2 text-sm font-bold bg-brand-surface border border-white/10 text-white px-8 py-3 rounded-sm hover:border-white/30 transition-colors uppercase tracking-widest font-mono">
                 Ekibimizi Görüntüle <ArrowRight size={14} />
               </Link>
             </div>
           </ScrollReveal>
         </section>
-
       </main>
   );
 }

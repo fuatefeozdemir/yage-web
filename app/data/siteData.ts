@@ -12,10 +12,6 @@ export const siteConfig = {
     }
 };
 
-// ==========================================
-// TİP TANIMLAMALARI (TYPESCRIPT INTERFACES)
-// ==========================================
-
 export type AkademikYil = "2024-2025" | "2025-2026" | "2026-2027";
 export type Kategori = "Eğitim" | "Teknik" | "Panel" | "Gezi" | "Yarışma" | "Sosyal";
 
@@ -43,12 +39,55 @@ export interface EkipUyesi {
     foto?: string;
 }
 
-// ==========================================
-// ETKİNLİKLER ARŞİVİ (GERÇEK VERİLER)
-// ==========================================
+export const etkinlikKategorileri = ["TÜMÜ", "EĞİTİM", "TEKNİK", "PANEL", "GEZİ", "YARIŞMA", "SOSYAL"];
+export const akademikYillar = ["TÜM DÖNEMLER", "2026-2027", "2025-2026", "2024-2025"];
+
+export const vitrinKareler = [
+    "/images/galeri/foto-1.png",
+    "/images/galeri/foto-2.jpg",
+    "/images/galeri/foto-3.jpeg",
+    "/images/galeri/foto-4.jpeg",
+    "/images/galeri/foto-5.jpeg"
+];
+
+export const destekciler = [
+    { isim: "Gazi Üniversitesi", logo: "/images/sponsorlar/gazi-logo.png" },
+    { isim: "TÜBİTAK", logo: "/images/sponsorlar/tubitak-logo.png" },
+];
+
+export const faaliyetler = ["YAZILIM", "EĞİTİMLER", "TEKNİK GEZİLER", "YARIŞMALAR", "PROJELER", "AR-GE"];
+
+export const unitDetails: Record<string, { short: string, desc: string, question: string }> = {
+    "Etkinlik ve Organizasyon": {
+        short: "Etkinliklerin planlanması ve yürütülmesi",
+        desc: "Etkinliklerin planlanması ve etkinlik süreçlerinin yürütülmesinden sorumlu birimimiz.",
+        question: "Etkinlik ve organizasyon alanında çalışmak ilgini çekiyor mu? YAGE'de düzenlemek istediğin bir etkinlik fikrin varsa bahsedebilirsin. Daha önce bu alanda yaptığın bir çalışma veya görev olduysa onu da anlatabilirsin."
+    },
+    "Sponsorluk": {
+        short: "Kurumsal iletişim ve kaynak sağlama",
+        desc: "Etkinlik ve projelerimiz için firmalarla iletişim kuran ve sponsorluk süreçlerini yürüten birimimiz.",
+        question: "Sponsorluk ve firmalarla iletişim alanında çalışmak ilgini çekiyor mu? İnsanlarla iletişim kurma, bir topluluğu veya projeyi tanıtma konusunda daha önce yaptığın bir çalışma veya görev olduysa bahsedebilirsin."
+    },
+    "Sosyal Medya": {
+        short: "İçerik, tasarım ve dijital iletişim",
+        desc: "Topluluğumuz için sosyal medya içerikleri ve afiş tasarımları hazırlayan, görsel çalışmalarımızı yürüten birimimiz.",
+        question: "Sosyal medya içerikleri ve afiş tasarımları hazırlarken hangi araçları kullanıyorsun? Özellikle Canva olmak üzere Photoshop, Illustrator, Premiere Pro gibi kullandığın araçlar varsa ve bu araçlarla daha önce hazırladığın çalışmalar olduysa bahsedebilirsin."
+    },
+    "İletişim": {
+        short: "Üye koordinasyonu ve topluluk kültürü",
+        desc: "Üyelerle iletişimi sağlayan, etkinlik başvurularıyla ilgilenen ve diğer topluluklarla iletişim kuran birimimiz.",
+        question: "Üyelerle ve farklı topluluklarla iletişim kurmak, etkinlik süreçlerinde başvurularla ilgilenmek gibi görevlerde yer almak ilgini çekiyor mu? Daha önce bu alanlarda yaptığın bir çalışma veya görev olduysa bahsedebilirsin."
+    },
+    "Eğitim ve Proje Geliştirme": {
+        short: "Teknik atölyeler ve AR-GE projeleri",
+        desc: "Eğitim ve yarışmaların içeriklerini hazırlayan, TEKNOFEST, TÜBİTAK ve benzeri projelerde topluluk takımlarıyla ilgilenen birimimiz.",
+        question: "Eğitim, proje ve yarışmalarla ilgileniyor musun? Özellikle TEKNOFEST, TÜBİTAK, hackathon ve benzeri yarışmalarda proje geliştirmek veya bir takımda yer almak istiyorsan bundan bahsedebilirsin. Bildiğin programlama dilleri ve teknolojiler, daha önce geliştirdiğin projeler veya katıldığın yarışmalar varsa onları da anlatabilirsin."
+    }
+};
+
+export const allUnits = Object.keys(unitDetails);
 
 export const etkinlikler: Etkinlik[] = [
-    // --- 2025-2026 AKADEMİK YILI ---
     {
         id: 21,
         slug: "gazi-dataforge-26",
@@ -296,8 +335,6 @@ export const etkinlikler: Etkinlik[] = [
         gorsel: "/images/etkinlikler/python-egitimi.jpeg",
         galeri: []
     },
-
-    // --- 2024-2025 AKADEMİK YILI ---
     {
         id: 2,
         slug: "gazi-teknopark-gezisi",
@@ -326,35 +363,22 @@ export const etkinlikler: Etkinlik[] = [
     }
 ];
 
-export const faaliyetler = ["YAZILIM", "EĞİTİMLER", "TEKNİK GEZİLER", "YARIŞMALAR", "PROJELER", "AR-GE"];
-
 export const yonetimKurulu: EkipUyesi[] = [
-    // YÖNETİM
     { isim: "Fuat Efe Özdemir", gorev: "Başkan", birim: "Yönetim", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/fuat-efe-ozdemir.jpg" },
     { isim: "Sude Özbay", gorev: "Başkan Yardımcısı", birim: "Yönetim", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/sude-ozbay.jpg" },
     { isim: "Zeynep Baykan", gorev: "Başkan Yardımcısı", birim: "Yönetim", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/zeynep-baykan.jpg" },
-
-    // ETKİNLİK VE ORGANİZASYON
     { isim: "Mustafa Emir Taşkıran", gorev: "Birim Başkanı", birim: "Etkinlik ve Organizasyon", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/mustafa-emir-taskiran.jpg" },
     { isim: "Kerem Aykut", gorev: "Birim Üyesi", birim: "Etkinlik ve Organizasyon", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/kerem-aykut.jpg" },
     { isim: "Hayat Yücel", gorev: "Birim Üyesi", birim: "Etkinlik ve Organizasyon", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/hayat-yucel.jpg" },
     { isim: "Ecrin Nisa Gezer", gorev: "Birim Üyesi", birim: "Etkinlik ve Organizasyon", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/ecrin-nisa-gezer.jpg" },
-
-    // SPONSORLUK
     { isim: "Beyza Ahmet", gorev: "Birim Başkanı", birim: "Sponsorluk", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/beyza-ahmet.jpg" },
     { isim: "-", gorev: "Birim Üyesi", birim: "Sponsorluk", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/-.jpg" },
-
-    // SOSYAL MEDYA
     { isim: "Kübra Topcu", gorev: "Birim Başkanı", birim: "Sosyal Medya", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/kübra-topcu.jpg" },
     { isim: "Fatma Bedia Erdem", gorev: "Birim Üyesi", birim: "Sosyal Medya", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/fatma-bedia-erdem.jpg" },
     { isim: "Ömer Faruk Tüysüzoğlu", gorev: "Birim Üyesi", birim: "Sosyal Medya", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/omer-faruk-tuysuzoglu.jpg" },
-
-    // İLETİŞİM
     { isim: "Duru Yüksel Sarıkaya", gorev: "Birim Başkanı", birim: "İletişim", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/duru-yuksel-sarikaya.jpg" },
     { isim: "Beste Kaya", gorev: "Birim Üyesi", birim: "İletişim", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/beste-kaya.jpg" },
     { isim: "Hatice Sıla Gündeşli", gorev: "Birim Üyesi", birim: "İletişim", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/hatice-sila-gundesli.jpg" },
-
-    // EĞİTİM VE PROJE GELİŞTİRME
     { isim: "Rıza Yurtseven", gorev: "Birim Başkanı", birim: "Eğitim ve Proje Geliştirme", featured: true, github: "#", linkedin: "#", foto: "/images/ekip/riza-yurtseven.jpg" },
     { isim: "Adem Halit Karagöz", gorev: "Birim Üyesi", birim: "Eğitim ve Proje Geliştirme", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/adem-halit-karagöz.jpg" },
     { isim: "Mertcan Hırlak", gorev: "Birim Üyesi", birim: "Eğitim ve Proje Geliştirme", featured: false, github: "#", linkedin: "#", foto: "/images/ekip/mertcan-hirlak.jpg" }

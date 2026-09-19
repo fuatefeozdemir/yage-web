@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
 @theme {
+  /* Renk Paleti */
   --color-brand-bg: #09090b;
-  --color-brand-surface: #18181b;
+  --color-brand-surface-darker: #0a0a0d;
+  --color-brand-surface-dark: #0c0c0f;
+  --color-brand-surface: #111113;
+  --color-brand-surface-light: #16161b;
+  --color-brand-surface-lighter: #18181b;
+
   --color-brand-primary: #6366f1;
   --color-brand-text: #f8fafc;
   --color-brand-muted: #94a3b8;
 
+  /* Animasyonlar */
   --animate-fade-up: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-grid-pan: gridPan 15s linear infinite;
   --animate-marquee-slow: marquee 40s linear infinite;
@@ -17,25 +24,25 @@
   }
   @keyframes marquee {
     0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); } /* Kusursuz sonsuz döngü için -50% */
+    100% { transform: translateX(-50%); }
   }
   @keyframes gridPan {
     0% { background-position: 0 0; }
-    100% { background-position: 0 24px; } /* Hafif aşağı kayma */
+    100% { background-position: 0 24px; }
   }
 }
 
 html, body {
-  background-color: #09090b;
-  color: #f8fafc;
+  background-color: var(--color-brand-bg);
+  color: var(--color-brand-text);
   scroll-behavior: smooth;
 }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #09090b; }
+::-webkit-scrollbar-track { background: var(--color-brand-bg); }
 ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: #6366f1; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-brand-primary); }
 .hide-scrollbar::-webkit-scrollbar { display: none; }
 
 /* Masaüstü Akordeon (Mobilde çalışmaz) */

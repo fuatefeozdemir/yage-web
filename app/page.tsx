@@ -2,72 +2,24 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Phone, Users, Calendar, Rocket, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Users, Calendar, Rocket } from "lucide-react";
 
 import ScrollReveal from "./components/ScrollReveal";
 import AnimatedCounter from "./components/AnimatedCounter";
 import EventCard from "./components/EventCard";
-// HATA BURADAYDI: siteConfig import'a eklendi.
-import { etkinlikler, faaliyetler, yonetimKurulu, siteConfig } from "./data/siteData";
+import AetherHero from "./components/AetherHero";
+import PersonCard from "./components/PersonCard";
 
-const vitrinKareler = [
-  "/images/galeri/foto-1.png",
-  "/images/galeri/foto-2.jpg",
-  "/images/galeri/foto-3.jpeg",
-  "/images/galeri/foto-4.jpeg",
-  "/images/galeri/foto-5.jpeg"
-];
-
-const destekciler = [
-  { isim: "Gazi Üniversitesi", logo: "/images/sponsorlar/gazi-logo.png" },
-  { isim: "TÜBİTAK", logo: "/images/sponsorlar/tubitak-logo.png" },
-];
+import { etkinlikler, faaliyetler, yonetimKurulu, vitrinKareler, destekciler } from "./data/siteData";
 
 export default function Home() {
   const seciliEkip = yonetimKurulu.filter(kisi => kisi.featured).slice(0, 8);
 
   return (
       <main className="flex flex-col min-h-screen">
+        <AetherHero />
 
-        <div className="relative bg-[#09090b] border-b border-white/5 min-h-screen flex flex-col justify-center overflow-hidden">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:24px_24px] animate-grid-pan [mask-image:linear-gradient(to_bottom,transparent,black_30%,transparent_90%)] z-0 pointer-events-none"></div>
-
-          <section className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-20">
-            <div className="max-w-4xl animate-fade-up">
-
-              <span className="block text-brand-muted uppercase tracking-[0.2em] text-xs md:text-sm font-mono font-bold mb-6">
-                Gazi Üniversitesi · Teknoloji Fakültesi
-              </span>
-
-              <h1 className="text-5xl md:text-7xl lg:text-[6rem] font-extrabold text-white leading-[1.05] tracking-tighter mb-8">
-                Yazılım Araştırma <br />
-                ve Geliştirme <br />
-                Topluluğu
-              </h1>
-
-              <p className="text-lg md:text-xl text-brand-muted/80 mb-12 max-w-2xl leading-relaxed">
-                Gazi Üniversitesi öğrencileriyle birlikte yazılım ve teknoloji üzerine çalışıyoruz. Birlikte öğreniyor, kodluyor ve projeler geliştiriyoruz.
-              </p>
-
-              <div className="flex flex-wrap items-center gap-5">
-                <Link href="/katil" className="flex items-center justify-center gap-2 bg-brand-primary text-white px-8 py-4 rounded-sm font-bold hover:bg-white hover:text-black transition-colors shadow-lg">
-                  Aramıza Katıl
-                </Link>
-                <a href={siteConfig.sosyal.whatsapp} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 bg-transparent text-white border border-white/20 px-8 py-4 rounded-sm font-semibold hover:bg-white/5 transition-colors group">
-                  <Phone size={18} className="text-[#25D366]" /> WhatsApp Grubu <ArrowUpRight size={16} className="opacity-50 group-hover:opacity-100 transition-opacity" />
-                </a>
-              </div>
-
-            </div>
-          </section>
-
-          <div className="absolute bottom-0 left-0 w-full px-6 pb-8 flex justify-between items-center text-[10px] sm:text-xs font-mono text-brand-muted/40 uppercase tracking-[0.2em] z-20">
-            <span className="hidden sm:inline-block">Gazi University</span>
-            <span>Ankara / TR</span>
-          </div>
-        </div>
-
-        <div className="bg-[#0c0c0f]">
+        <div className="bg-brand-surface-dark">
           <section className="py-24 md:py-32 px-6 relative z-10">
             <ScrollReveal className="max-w-6xl mx-auto">
               <div className="grid md:grid-cols-12 gap-12 items-start">
@@ -89,9 +41,9 @@ export default function Home() {
             </ScrollReveal>
           </section>
 
-          <div className="flex overflow-hidden py-8 relative select-none border-y border-white/5 bg-[#0a0a0d]">
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#0a0a0d] to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#0a0a0d] to-transparent z-10 pointer-events-none"></div>
+          <div className="flex overflow-hidden py-8 relative select-none border-y border-white/5 bg-brand-surface-darker">
+            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-brand-surface-darker to-transparent z-10 pointer-events-none"></div>
+            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-brand-surface-darker to-transparent z-10 pointer-events-none"></div>
 
             <div className="flex w-fit animate-marquee-slow">
               <div className="flex items-center shrink-0">
@@ -142,7 +94,7 @@ export default function Home() {
           </section>
         </div>
 
-        <section className="py-24 bg-[#111113] border-t border-b border-white/5">
+        <section className="py-24 bg-brand-surface border-t border-b border-white/5">
           <ScrollReveal delay={0}>
             <div className="max-w-6xl mx-auto px-6 mb-12">
               <h2 className="text-2xl font-bold text-white uppercase tracking-widest">Bizden Kareler</h2>
@@ -154,7 +106,7 @@ export default function Home() {
               {vitrinKareler.map((gorsel, i) => (
                   <div
                       key={i}
-                      className="shrink-0 w-[85vw] md:w-auto md:flex-1 md:hover:flex-[3] transition-all duration-700 ease-in-out h-full bg-[#18181b] snap-center relative group border-r border-white/5 overflow-hidden"
+                      className="shrink-0 w-[85vw] md:w-auto md:flex-1 md:hover:flex-[3] transition-all duration-700 ease-in-out h-full bg-brand-surface-lighter snap-center relative group border-r border-white/5 overflow-hidden"
                   >
                     {gorsel.startsWith("/") ? (
                         <Image src={gorsel} alt={`YAGE Vitrin ${i + 1}`} fill className="object-cover" />
@@ -168,7 +120,7 @@ export default function Home() {
           </ScrollReveal>
         </section>
 
-        <section id="etkinlikler" className="py-24 px-6 bg-[#09090b]">
+        <section id="etkinlikler" className="py-24 px-6 bg-brand-bg">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="mb-12">
@@ -186,7 +138,7 @@ export default function Home() {
 
             <ScrollReveal>
               <div className="flex justify-center">
-                <Link href="/etkinlikler" className="inline-flex items-center gap-2 bg-[#111113] border border-white/10 text-white px-8 py-3 rounded-sm text-sm hover:border-white/30 transition-colors uppercase tracking-widest font-mono">
+                <Link href="/etkinlikler" className="inline-flex items-center gap-2 bg-brand-surface border border-white/10 text-white px-8 py-3 rounded-sm text-sm hover:border-white/30 transition-colors uppercase tracking-widest font-mono">
                   Tüm Etkinlikleri İncele <ArrowRight size={14} />
                 </Link>
               </div>
@@ -194,19 +146,19 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="katil" className="py-24 px-6 bg-[#111113] border-y border-white/5">
+        <section id="katil" className="py-24 px-6 bg-brand-surface border-y border-white/5">
           <ScrollReveal className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">YAGE'ye katılmak ister misin?</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Görevli Ekiplerimize Katıl</h2>
             <p className="text-brand-muted mb-10 text-lg leading-relaxed">
-              Hangi seviyede olursan ol, yazılıma meraklıysan kapımız açık. Eğitimlere katıl, etkinlikleri takip et veya çalışma gruplarında kod yazmaya başla.
+              Topluluğun arka planında çalışan, etkinlikleri organize eden, sponsorlukları yürüten veya teknik atölyeler tasarlayan ekiplerimizde görev al.
             </p>
             <Link href="/katil" className="inline-block bg-brand-primary text-white px-10 py-4 rounded-sm font-bold hover:bg-white hover:text-black transition-colors shadow-lg">
-              Başvuru Formuna Git
+              Ekip Başvuru Formu
             </Link>
           </ScrollReveal>
         </section>
 
-        <section className="py-32 px-6 bg-[#09090b]">
+        <section className="py-32 px-6 bg-brand-bg">
           <div className="max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="mb-16">
@@ -217,24 +169,14 @@ export default function Home() {
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-x-6 gap-y-12 mb-16">
               {seciliEkip.map((kisi, i) => (
                   <ScrollReveal key={i} delay={i * 50}>
-                    <div className="flex flex-col items-center group text-center">
-                      <div className="w-28 h-28 md:w-32 md:h-32 rounded-full bg-[#111113] mb-5 border border-white/5 overflow-hidden relative transition-transform duration-500 group-hover:scale-105 group-hover:border-brand-primary/30 grayscale group-hover:grayscale-0 shadow-lg">
-                        {(kisi as any).foto && (kisi as any).foto.startsWith("/") ? (
-                            <Image src={(kisi as any).foto} alt={kisi.isim} fill className="object-cover" />
-                        ) : (
-                            <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-xs font-mono group-hover:opacity-0 transition-opacity">IMG</div>
-                        )}
-                      </div>
-                      <h3 className="text-base md:text-lg font-bold text-white leading-tight">{kisi.isim}</h3>
-                      <p className="text-brand-muted text-xs md:text-sm mt-1">{kisi.gorev}</p>
-                    </div>
+                    <PersonCard kisi={kisi} />
                   </ScrollReveal>
               ))}
             </div>
 
             <ScrollReveal>
               <div className="flex justify-center">
-                <Link href="/ekip" className="inline-flex items-center gap-2 bg-[#111113] border border-white/10 text-white px-8 py-3 rounded-sm text-sm hover:border-white/30 transition-colors uppercase tracking-widest font-mono">
+                <Link href="/ekip" className="inline-flex items-center gap-2 bg-brand-surface border border-white/10 text-white px-8 py-3 rounded-sm text-sm hover:border-white/30 transition-colors uppercase tracking-widest font-mono">
                   Tüm Ekibi İncele <ArrowRight size={14} />
                 </Link>
               </div>
@@ -242,7 +184,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="py-24 bg-[#0c0c0f] border-t border-white/5 px-6">
+        <section className="py-24 bg-brand-surface-dark border-t border-white/5 px-6">
           <ScrollReveal>
             <div className="max-w-6xl mx-auto text-center">
               <h2 className="text-[10px] font-bold tracking-[0.2em] text-brand-muted/40 uppercase mb-20">İş birlikleri ve Destekçiler</h2>
@@ -267,7 +209,6 @@ export default function Home() {
             </div>
           </ScrollReveal>
         </section>
-
       </main>
   );
 }

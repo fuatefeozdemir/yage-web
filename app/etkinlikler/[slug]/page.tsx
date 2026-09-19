@@ -21,35 +21,25 @@ export default async function EventDetailPage({ params }: { params: Params }) {
     if (!event) return notFound();
 
     return (
-        <main className="flex flex-col min-h-screen bg-[#09090b] pt-40 pb-32">
-
+        <main className="flex flex-col min-h-screen bg-brand-bg pt-40 pb-32">
             <article className="max-w-5xl mx-auto px-6 w-full">
-
                 <ScrollReveal>
                     <Link href="/etkinlikler" className="inline-flex items-center gap-2 text-sm font-medium text-brand-muted hover:text-white transition-colors mb-10 group">
                         <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Etkinliklere Dön
                     </Link>
-
                     <div className="flex items-center gap-3 mb-4 text-xs font-mono font-bold tracking-widest uppercase">
                         <span className="text-brand-primary">{event.kategori}</span>
                         <span className="text-white/20">•</span>
                         <span className="text-brand-muted">{event.tarih}</span>
                     </div>
-
                     <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight mb-8 leading-[1.1]">
                         {event.baslik}
                     </h1>
                 </ScrollReveal>
 
-                <ScrollReveal delay={100} className="relative w-full h-[40vh] md:h-[60vh] rounded-sm overflow-hidden mb-12 border border-white/5 bg-[#111113]">
+                <ScrollReveal delay={100} className="relative w-full h-[40vh] md:h-[60vh] rounded-sm overflow-hidden mb-12 border border-white/5 bg-brand-surface">
                     {event.gorsel.startsWith("/") ? (
-                        <Image
-                            src={event.gorsel}
-                            alt={event.baslik}
-                            fill
-                            priority
-                            className="object-cover"
-                        />
+                        <Image src={event.gorsel} alt={event.baslik} fill priority className="object-cover" />
                     ) : (
                         <div className="absolute inset-0 flex items-center justify-center text-brand-muted/30 font-mono text-sm">
                             {event.gorsel}
@@ -80,33 +70,22 @@ export default async function EventDetailPage({ params }: { params: Params }) {
 
                 {event.galeri && event.galeri.length > 0 && (
                     <ScrollReveal className="mt-20 border-t border-white/5 pt-16">
-
                         <div className="mb-8">
-                            <h2 className="text-2xl font-bold text-white tracking-tight">
-                                Etkinlikten Kareler
-                            </h2>
+                            <h2 className="text-2xl font-bold text-white tracking-tight">Etkinlikten Kareler</h2>
                         </div>
-
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                             {event.galeri.map((foto, idx) => (
-                                <div key={idx} className="aspect-square bg-[#111113] rounded-sm border border-white/5 flex items-center justify-center text-brand-muted/30 text-xs font-mono overflow-hidden relative group cursor-pointer">
+                                <div key={idx} className="aspect-square bg-brand-surface rounded-sm border border-white/5 flex items-center justify-center text-brand-muted/30 text-xs font-mono overflow-hidden relative group cursor-pointer">
                                     {foto.startsWith("/") ? (
-                                        <Image
-                                            src={foto}
-                                            alt={`${event.baslik} Kare ${idx + 1}`}
-                                            fill
-                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                        />
+                                        <Image src={foto} alt={`${event.baslik} Kare ${idx + 1}`} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
                                     ) : (
                                         <span className="relative z-10">{foto}</span>
                                     )}
                                 </div>
                             ))}
                         </div>
-
                     </ScrollReveal>
                 )}
-
             </article>
         </main>
     );

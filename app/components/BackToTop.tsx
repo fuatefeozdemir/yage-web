@@ -16,7 +16,7 @@ export default function BackToTop() {
     return (
         <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-8 right-8 z-50 w-11 h-11 rounded-full bg-[#18181b] border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-colors shadow-lg"
+            className="fixed bottom-8 right-8 z-40 w-11 h-11 rounded-full bg-brand-surface-lighter border border-white/10 flex items-center justify-center hover:bg-white hover:text-black transition-colors shadow-lg"
             aria-label="Yukarı Çık"
         >
             <ArrowUp size={20} />

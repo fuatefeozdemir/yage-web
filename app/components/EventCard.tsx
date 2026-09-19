@@ -5,8 +5,8 @@ import { Etkinlik } from "../data/siteData";
 
 export default function EventCard({ etkinlik }: { etkinlik: Etkinlik }) {
     return (
-        <Link href={`/etkinlikler/${etkinlik.slug}`} className="group flex flex-col bg-[#111113] rounded-sm overflow-hidden border border-white/5 hover:border-white/20 transition-all cursor-pointer h-full relative">
-            <div className="h-56 bg-[#18181b] relative overflow-hidden border-b border-white/5">
+        <Link href={`/etkinlikler/${etkinlik.slug}`} className="group flex flex-col bg-brand-surface rounded-sm overflow-hidden border border-white/5 hover:border-white/20 transition-all cursor-pointer h-full relative">
+            <div className="h-56 bg-brand-surface-lighter relative overflow-hidden border-b border-white/5">
                 <div className="absolute top-4 left-4 flex gap-2 z-20">
                     <span className="bg-black/70 backdrop-blur-md text-white text-[10px] font-mono px-3 py-1.5 rounded-sm uppercase tracking-widest">{etkinlik.tarih}</span>
                     <span className="bg-brand-primary/90 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1.5 rounded-sm uppercase tracking-widest">{etkinlik.kategori}</span>
@@ -16,7 +16,7 @@ export default function EventCard({ etkinlik }: { etkinlik: Etkinlik }) {
                     <Image src={etkinlik.gorsel} alt={etkinlik.baslik} fill className="object-cover transition-transform duration-700 group-hover:scale-105" />
                 ) : (
                     <>
-                        <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105 bg-[#18181b]"></div>
+                        <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105 bg-brand-surface-lighter"></div>
                         <div className="absolute inset-0 flex items-center justify-center text-brand-muted/20 text-sm font-mono">{etkinlik.gorsel}</div>
                     </>
                 )}

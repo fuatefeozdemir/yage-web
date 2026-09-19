@@ -17,10 +17,18 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Sayfa değiştiğinde mobil menüyü kapat
     useEffect(() => {
         setMobileMenuOpen(false);
     }, [pathname]);
+
+    useEffect(() => {
+        if (mobileMenuOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        return () => { document.body.style.overflow = "unset"; };
+    }, [mobileMenuOpen]);
 
     const navLinks = [
         { name: "Hakkımızda", path: "/hakkimizda" },
@@ -34,12 +42,11 @@ export default function Navbar() {
         <nav
             className={`fixed top-0 w-full z-50 transition-all duration-300 ${
                 scrolled || mobileMenuOpen
-                    ? "bg-[#09090b]/95 backdrop-blur-md border-b border-white/10 py-3 shadow-md"
-                    : "bg-[#09090b]/60 backdrop-blur-sm border-b border-white/5 py-5"
+                    ? "bg-brand-bg/95 backdrop-blur-md border-b border-white/10 py-3 shadow-md"
+                    : "bg-brand-bg/60 backdrop-blur-sm border-b border-white/5 py-5"
             }`}
         >
             <div className="max-w-7xl mx-auto px-6 md:px-8 flex items-center justify-between">
-
                 <div className="flex items-center gap-12 md:gap-16">
                     <Link href="/">
                         <Image
@@ -52,7 +59,6 @@ export default function Navbar() {
                         />
                     </Link>
 
-                    {/* Masaüstü Menü */}
                     <div className="hidden md:flex items-center space-x-10 text-sm font-medium">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.path;
@@ -76,7 +82,6 @@ export default function Navbar() {
                     </div>
                 </div>
 
-                {/* Masaüstü CTA */}
                 <div className="hidden md:block">
                     <Link
                         href="/katil"
@@ -86,7 +91,6 @@ export default function Navbar() {
                     </Link>
                 </div>
 
-                {/* Mobil Hamburger Butonu */}
                 <button
                     className="md:hidden text-white relative z-50 p-2 -mr-2"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -95,9 +99,8 @@ export default function Navbar() {
                 </button>
             </div>
 
-            {/* Mobil Menü Overlay */}
             <div
-                className={`fixed inset-0 bg-[#09090b] flex flex-col items-center justify-center gap-8 transition-all duration-500 ease-in-out md:hidden ${
+                className={`fixed inset-0 bg-brand-bg flex flex-col items-center justify-center gap-8 transition-all duration-500 ease-in-out md:hidden ${
                     mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible pointer-events-none"
                 }`}
             >

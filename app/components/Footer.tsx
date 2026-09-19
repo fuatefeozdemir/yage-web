@@ -2,9 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="relative bg-[#09090b] pt-20 pb-8 px-6 border-t border-white/5 overflow-hidden">
-
-            {/* Yeni Tasarım Detayı: Sağ Alttan Silikleşen Nokta Matrisi */}
+        <footer className="relative bg-brand-bg pt-20 pb-8 px-6 border-t border-white/5 overflow-hidden">
             <div
                 className="absolute -bottom-16 -right-16 w-96 h-96 opacity-20 pointer-events-none z-0"
                 style={{
@@ -16,11 +14,7 @@ export default function Footer() {
             ></div>
 
             <div className="max-w-6xl mx-auto relative z-10">
-
-                {/* Üst Kısım */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-16">
-
-                    {/* Marka & Açıklama */}
                     <div className="col-span-1 md:col-span-2">
                         <div className="font-bold text-4xl tracking-tight mb-4 text-white">
                             YAGE
@@ -30,7 +24,6 @@ export default function Footer() {
                         </p>
                     </div>
 
-                    {/* Sosyal Ağlar */}
                     <div>
                         <h4 className="text-[10px] font-mono font-bold text-brand-muted/50 uppercase tracking-[0.2em] mb-6">
                             BİZİ TAKİP ET
@@ -54,7 +47,6 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* İletişim & Konum */}
                     <div>
                         <h4 className="text-[10px] font-mono font-bold text-brand-muted/50 uppercase tracking-[0.2em] mb-6">
                             KONUM
@@ -69,10 +61,8 @@ export default function Footer() {
                             yagegazi@gmail.com
                         </a>
                     </div>
-
                 </div>
 
-                {/* Alt Kısım (Copyright & Kurum Bilgisi) */}
                 <div className="pt-8 border-t border-white/5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                     <div className="text-[11px] font-mono text-brand-muted/50 uppercase tracking-widest">
                         &copy; {new Date().getFullYear()} YAGE
@@ -81,7 +71,6 @@ export default function Footer() {
                         Gazi Üniversitesi Teknoloji Fakültesi
                     </div>
                 </div>
-
             </div>
         </footer>
     );
