@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { yonetimKurulu } from "../data/siteData";
 import ScrollReveal from "../components/ScrollReveal";
 import PersonCard from "../components/PersonCard";
+import CtaLink from "../components/CtaLink";
 
 export default function TeamPage() {
     const [activeTab, setActiveTab] = useState("Yönetim");
@@ -83,13 +83,22 @@ export default function TeamPage() {
                 })()}
             </section>
 
-            <section className="py-24 border-t border-white/5 text-center px-6 bg-brand-surface-dark">
-                <ScrollReveal>
-                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-3 tracking-tight">Ekipte görev almak ister misin?</h2>
-                    <p className="text-brand-muted mb-8 text-sm md:text-base">Çalışma gruplarımızda ve projelerimizde yer al.</p>
-                    <Link href="/katil" className="inline-flex items-center gap-2 bg-brand-primary text-white px-8 py-3.5 rounded-sm font-bold hover:bg-white hover:text-black transition-colors shadow-lg">
-                        Ekip Başvuru Formu <ArrowRight size={18} />
-                    </Link>
+            <section className="py-16 px-6 relative overflow-hidden border-t border-white/5 bg-brand-surface-darker">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[100px] bg-white/5 blur-[50px] rounded-full pointer-events-none z-0"></div>
+
+                <ScrollReveal className="max-w-4xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
+                    <div className="text-center md:text-left flex-1">
+                        <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
+                            Yönetim Kurulunda Yer Al
+                        </h2>
+                        <p className="text-brand-muted text-sm md:text-base">
+                            YAGE'nin etkinliklerini koordine eden, sponsorluklarını yürüten ve topluluğun altyapısını şekillendiren çekirdek ekibe katıl.
+                        </p>
+                    </div>
+
+                    <CtaLink href="/katil" className="shrink-0 px-8 py-4">
+                        Başvuru Formu <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    </CtaLink>
                 </ScrollReveal>
             </section>
         </main>

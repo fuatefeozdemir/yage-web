@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
+import CtaLink from "./CtaLink";
 
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
@@ -83,12 +84,9 @@ export default function Navbar() {
                 </div>
 
                 <div className="hidden md:block">
-                    <Link
-                        href="/katil"
-                        className="inline-block bg-brand-primary text-white px-6 py-2.5 rounded-sm text-sm font-bold hover:bg-white hover:text-black transition-colors duration-300 uppercase tracking-widest"
-                    >
+                    <CtaLink href="/katil" className="px-6 py-2.5">
                         Bize Katıl
-                    </Link>
+                    </CtaLink>
                 </div>
 
                 <button
@@ -116,12 +114,9 @@ export default function Navbar() {
                     </Link>
                 ))}
 
-                <Link
-                    href="/katil"
-                    className="mt-8 bg-brand-primary text-white px-10 py-4 rounded-sm text-lg font-bold uppercase tracking-widest"
-                >
+                <CtaLink href="/katil" className="mt-8 px-10 py-4 text-lg">
                     Bize Katıl
-                </Link>
+                </CtaLink>
             </div>
         </nav>
     );

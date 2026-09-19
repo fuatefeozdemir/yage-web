@@ -9,6 +9,7 @@ import AnimatedCounter from "./components/AnimatedCounter";
 import EventCard from "./components/EventCard";
 import AetherHero from "./components/AetherHero";
 import PersonCard from "./components/PersonCard";
+import CtaLink from "./components/CtaLink"; // EKLENDİ
 
 import { etkinlikler, faaliyetler, yonetimKurulu, vitrinKareler, destekciler } from "./data/siteData";
 
@@ -146,9 +147,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* --- KOMPAKT "CTA WITH GLOW" TASARIMI --- */}
         <section id="katil" className="py-16 px-6 relative overflow-hidden border-y border-white/5 bg-brand-surface-darker">
-          {/* Arkadaki zarif parlama */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[100px] bg-white/5 blur-[50px] rounded-full pointer-events-none z-0"></div>
 
           <ScrollReveal className="max-w-4xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
@@ -161,9 +160,10 @@ export default function Home() {
               </p>
             </div>
 
-            <Link href="/katil" className="shrink-0 group relative inline-flex items-center justify-center gap-2 bg-white text-black px-7 py-3.5 rounded-sm text-sm font-bold uppercase tracking-widest font-mono transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:-translate-y-0.5">
+            {/* YENİ CTA BİLEŞENİ */}
+            <CtaLink href="/katil" className="shrink-0 px-8 py-4">
               Başvuru Formu <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-            </Link>
+            </CtaLink>
           </ScrollReveal>
         </section>
 

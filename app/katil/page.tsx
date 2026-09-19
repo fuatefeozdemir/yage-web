@@ -86,13 +86,9 @@ export default function JoinPage() {
             <section className="w-full pt-40 pb-16 px-6 border-b border-white/5">
                 <div className="max-w-3xl mx-auto text-center">
                     <ScrollReveal>
-                        <div className="flex items-center justify-center gap-3 mb-6">
-                            <div className="w-2 h-2 bg-brand-primary rounded-sm"></div>
-                            <span className="font-mono text-xs tracking-widest uppercase text-brand-muted">Yönetim Kurulu ve Birim Başvurusu</span>
-                        </div>
-                        <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">Aramıza Katıl</h1>
+                        <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">Yönetim Kuruluna Katıl</h1>
                         <p className="text-base md:text-lg text-brand-muted/90 leading-relaxed mb-4">
-                            YAGE'nin mutfağında yer almak, etkinlikleri organize eden ve projeleri yürüten çekirdek ekibimize katılmak için başvurunu gönderebilirsin. Sadece duyurulardan haberdar olmak için WhatsApp grubumuza katılman yeterlidir.
+                            YAGE'nin etkinliklerini organize eden ve projeleri yürüten yönetim kurulumuza katılmak için başvurunu gönderebilirsin.
                         </p>
                     </ScrollReveal>
                 </div>
