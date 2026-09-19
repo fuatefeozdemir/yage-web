@@ -31,10 +31,10 @@ export default function Home() {
                 </div>
                 <div className="md:col-span-5 flex flex-col gap-6 text-lg text-brand-muted/90 leading-relaxed font-medium mt-2">
                   <p>
-                    YAGE, yazılıma ve teknolojiye ilgi duyan öğrencilerin buluşma noktasıdır. Kulüp bünyesinde sadece teorik eğitimler almaz; çalışma gruplarına katılır, teknik gezilerde ekosistemi tanır ve proje ekipleriyle birlikte gerçek sistemler geliştiririz.
+                    YAGE, yazılım ve teknoloji alanında kendini geliştirmek isteyen öğrencileri bir araya getirir. Eğitimler, teknik geziler, söyleşiler ve çalışma grupları aracılığıyla farklı alanlarda bilgi edinme ve uygulama imkânı sunar.
                   </p>
                   <p>
-                    Amacımız üniversite yıllarını birbirimizden öğrenerek ve somut işler üreterek geçirmek.
+                    Topluluk faaliyetlerinin yanı sıra proje ekipleriyle birlikte çalışmalar yürütüyor, edinilen bilgilerin uygulamaya aktarılmasını destekliyoruz. YAGE'nin temel amacı, öğrencilerin üniversite hayatları boyunca birlikte öğrenebilecekleri, üretebilecekleri ve kendilerini geliştirebilecekleri bir ortam oluşturmak.
                   </p>
                 </div>
               </div>
@@ -146,14 +146,23 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="katil" className="py-24 px-6 bg-brand-surface border-y border-white/5">
-          <ScrollReveal className="max-w-2xl mx-auto text-center">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">Görevli Ekiplerimize Katıl</h2>
-            <p className="text-brand-muted mb-10 text-lg leading-relaxed">
-              Topluluğun arka planında çalışan, etkinlikleri organize eden, sponsorlukları yürüten veya teknik atölyeler tasarlayan ekiplerimizde görev al.
-            </p>
-            <Link href="/katil" className="inline-block bg-brand-primary text-white px-10 py-4 rounded-sm font-bold hover:bg-white hover:text-black transition-colors shadow-lg">
-              Ekip Başvuru Formu
+        {/* --- KOMPAKT "CTA WITH GLOW" TASARIMI --- */}
+        <section id="katil" className="py-16 px-6 relative overflow-hidden border-y border-white/5 bg-brand-surface-darker">
+          {/* Arkadaki zarif parlama */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] md:w-[600px] h-[100px] bg-white/5 blur-[50px] rounded-full pointer-events-none z-0"></div>
+
+          <ScrollReveal className="max-w-4xl mx-auto relative z-10 flex flex-col md:flex-row items-center justify-between gap-6 md:gap-12">
+            <div className="text-center md:text-left flex-1">
+              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2 tracking-tight">
+                Yönetim Kurulunda Yer Al
+              </h2>
+              <p className="text-brand-muted text-sm md:text-base">
+                YAGE'nin etkinliklerini koordine eden, sponsorluklarını yürüten ve topluluğun altyapısını şekillendiren çekirdek ekibe katıl.
+              </p>
+            </div>
+
+            <Link href="/katil" className="shrink-0 group relative inline-flex items-center justify-center gap-2 bg-white text-black px-7 py-3.5 rounded-sm text-sm font-bold uppercase tracking-widest font-mono transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] hover:-translate-y-0.5">
+              Başvuru Formu <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
             </Link>
           </ScrollReveal>
         </section>
